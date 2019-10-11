@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="rootGridPane" style="-fx-background-color: #D9F7F0;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller">
+<GridPane fx:id="rootGridPane" style="-fx-background-color: DARKGREY;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ui.Controller">
     <columnConstraints>
         <ColumnConstraints />
         <ColumnConstraints maxWidth="328.0" minWidth="265.0" prefWidth="265.0" />
@@ -24,7 +24,7 @@
     <children>
         <Pane GridPane.columnSpan="2" />
         <Pane fx:id="insertDiscsPane" prefHeight="400.0" prefWidth="200.0" GridPane.rowIndex="1" />
-        <VBox style="-fx-background-color: #2B3B4C;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <VBox style="-fx-background-color: DARKSALMON;" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <children>
             <TextField fx:id="pl1" promptText="Player One Name">
                <VBox.margin>

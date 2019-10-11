@@ -1,4 +1,4 @@
-package app;
+package app.ui;
 
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -33,8 +33,8 @@ public class Controller implements Initializable {
 	private static final int COLUMNS = 7;
 	private static final int ROWS = 6;
 	private static final int CIRCLE_DIAMETER = 80;
-	private static final String discColor1 = "#24303E";
-	private static final String discColor2 = "#4CAA88";
+	private static final String discColor1 = "WHITE";
+	private static final String discColor2 = "BLACK";
 
 	public static String PLAYER_ONE = "Player One";
 	public static String PLAYER_Two = "Player Two";
@@ -141,7 +141,7 @@ public class Controller implements Initializable {
 		}
 
 
-		rectangleWithHoles.setFill(Color.WHITE);
+		rectangleWithHoles.setFill(Color.DARKSALMON);
 
 		return rectangleWithHoles;
 
