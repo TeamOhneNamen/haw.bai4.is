@@ -3,6 +3,10 @@ package app.logic;
 //Based on this idea: https://cs.stackexchange.com/a/13455
 public class Heuristic {
 
+    public static double determineScore(String playerColor){
+        return determineHorizontalScore(playerColor);
+    }
+
     protected static double determineHorizontalScore(String playerColor) {
         double score = 0;
         for (int i = 0; i < Board.rowLength(); i++) {

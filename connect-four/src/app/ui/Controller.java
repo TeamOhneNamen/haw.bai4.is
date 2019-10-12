@@ -1,6 +1,7 @@
 package app.ui;
 
 import app.logic.Board;
+import app.logic.Heuristic;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -31,349 +32,341 @@ import java.util.stream.IntStream;
 public class Controller implements Initializable {
 
 
-	public static final int COLUMNS = 7;
-	public static final int ROWS = 6;
-	private static final int CIRCLE_DIAMETER = 80;
-	private static final String discColor1 = "WHITE";
-	private static final String discColor2 = "BLACK";
+    public static final int COLUMNS = 7;
+    public static final int ROWS = 6;
+    private static final int CIRCLE_DIAMETER = 80;
+    private static final String discColor1 = "0x000000ff";
+    private static final String discColor2 = "0xffffffff";
 
-	public static String PLAYER_ONE = "Player One";
-	public static String PLAYER_Two = "Player Two";
+    public static String PLAYER_ONE = "Player One";
+    public static String PLAYER_Two = "Player Two";
 
-	private boolean isPlayerOne = true;
+    private boolean isPlayerOne = true;
 
-	private Disc[][] insertedDiscArray = new Disc[ROWS][COLUMNS];
+    private Disc[][] insertedDiscArray = new Disc[ROWS][COLUMNS];
 
 
-	private boolean isAllowed =true;
+    private boolean isAllowed = true;
 
-	@FXML
-	public GridPane rootGridPane;
-	@FXML
-	public Pane insertDiscsPane;
+    @FXML
+    public GridPane rootGridPane;
+    @FXML
+    public Pane insertDiscsPane;
 
-	@FXML
-	public Label playerNameLabel;
+    @FXML
+    public Label playerNameLabel;
 
-	@FXML
-	public TextField pl1,pl2;
+    @FXML
+    public TextField pl1, pl2;
 
-	@FXML
-	public Button setBtn;
+    @FXML
+    public Label score1, score2;
 
+    @FXML
+    public Button setBtn;
 
 
+    public void createPlayground() {
 
-	public void createPlayground() {
 
+        pl1.setFocusTraversable(false);
+        pl2.setFocusTraversable(false);
 
-		pl1.setFocusTraversable(false);
-		pl2.setFocusTraversable(false);
 
+        setBtn.setOnAction(event -> {
 
-		setBtn.setOnAction(event -> {
+            PLAYER_ONE = pl1.getText();
+            PLAYER_Two = pl2.getText();
 
-			PLAYER_ONE=pl1.getText();
-			PLAYER_Two= pl2.getText();
+            if (PLAYER_ONE.isEmpty() || PLAYER_Two.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Enter all Details");
+                alert.setContentText("Enter details for both Player One and Player Two");
+                alert.show();
+                PLAYER_ONE = "PLAYER ONE";
+                PLAYER_Two = "PLAYER TWO";
+                resetGame();
+                pl1.clear();
+                pl2.clear();
 
-					if(PLAYER_ONE.isEmpty() || PLAYER_Two.isEmpty()) {
-						Alert alert = new Alert(Alert.AlertType.ERROR);
-						alert.setTitle("Enter all Details");
-						alert.setContentText("Enter details for both Player One and Player Two");
-						alert.show();
-						PLAYER_ONE="PLAYER ONE";
-						PLAYER_Two="PLAYER TWO";
-						resetGame();
-						pl1.clear();
-						pl2.clear();
 
+            }
+            resetGame();
 
 
-					}
-				resetGame();
+        });
 
 
-		});
+        Shape rectangleWithHoles = createGameStructuralGrid();
 
 
+        rootGridPane.add(rectangleWithHoles, 0, 1);
 
+        List<Rectangle> rectangleList = createClickableColumns();
 
+        for (Rectangle rectangle : rectangleList
+        ) {
+            rootGridPane.add(rectangle, 0, 1);
 
+        }
 
+    }
 
 
-		Shape rectangleWithHoles = createGameStructuralGrid();
+    private Shape createGameStructuralGrid() {
 
+        Shape rectangleWithHoles = new Rectangle((COLUMNS + 1) * CIRCLE_DIAMETER, (ROWS + 1) * CIRCLE_DIAMETER);
 
-		rootGridPane.add(rectangleWithHoles, 0, 1);
 
-		List<Rectangle> rectangleList = createClickableColumns();
+        for (int row = 0; row < ROWS; row++) {
+            for (int col = 0; col < COLUMNS; col++) {
 
-		for (Rectangle rectangle : rectangleList
-		) {
-			rootGridPane.add(rectangle, 0, 1);
+                Circle circle = new Circle();
+                circle.setRadius(CIRCLE_DIAMETER / 2);
+                circle.setCenterX(CIRCLE_DIAMETER / 2);
+                circle.setCenterY(CIRCLE_DIAMETER / 2);
+                circle.setSmooth(true);
 
-		}
+                circle.setTranslateX(col * (CIRCLE_DIAMETER + 5) + CIRCLE_DIAMETER / 4);
+                circle.setTranslateY(row * (CIRCLE_DIAMETER + 5) + CIRCLE_DIAMETER / 4);
+                rectangleWithHoles = Shape.subtract(rectangleWithHoles, circle);
 
-	}
+            }
 
 
-	private Shape createGameStructuralGrid() {
+        }
 
-		Shape rectangleWithHoles = new Rectangle((COLUMNS + 1) * CIRCLE_DIAMETER, (ROWS + 1) * CIRCLE_DIAMETER);
 
+        rectangleWithHoles.setFill(Color.DARKSALMON);
 
-		for (int row = 0; row < ROWS; row++) {
-			for (int col = 0; col < COLUMNS; col++) {
+        return rectangleWithHoles;
 
-				Circle circle = new Circle();
-				circle.setRadius(CIRCLE_DIAMETER / 2);
-				circle.setCenterX(CIRCLE_DIAMETER / 2);
-				circle.setCenterY(CIRCLE_DIAMETER / 2);
-				circle.setSmooth(true);
 
-				circle.setTranslateX(col * (CIRCLE_DIAMETER + 5) + CIRCLE_DIAMETER / 4);
-				circle.setTranslateY(row * (CIRCLE_DIAMETER + 5) + CIRCLE_DIAMETER / 4);
-				rectangleWithHoles = Shape.subtract(rectangleWithHoles, circle);
+    }
 
-			}
 
+    private List<Rectangle> createClickableColumns() {
 
-		}
+        List<Rectangle> rectangleList = new ArrayList<>();
 
 
-		rectangleWithHoles.setFill(Color.DARKSALMON);
+        for (int col = 0; col < COLUMNS; col++) {
+            Rectangle rectangle = new Rectangle(CIRCLE_DIAMETER, (ROWS + 1) * CIRCLE_DIAMETER);
+            rectangle.setFill(Color.TRANSPARENT);
+            rectangle.setTranslateX(col * (CIRCLE_DIAMETER + 5) + CIRCLE_DIAMETER / 4);
 
-		return rectangleWithHoles;
 
+            rectangle.setOnMouseEntered(event -> rectangle.setFill(Color.valueOf("#eeeeee26")));
+            rectangle.setOnMouseExited(event -> rectangle.setFill(Color.TRANSPARENT));
 
-	}
+            final int column = col;
+            rectangle.setOnMouseClicked(event -> {
 
+                if (isAllowed) {
+                    isAllowed = false;
+                    insertDisc(new Disc(isPlayerOne), column);
+                }
+            });
 
-	private List<Rectangle> createClickableColumns() {
+            rectangleList.add(rectangle);
 
-		List<Rectangle> rectangleList = new ArrayList<>();
+        }
 
+        return rectangleList;
 
-		for (int col = 0; col < COLUMNS; col++) {
-			Rectangle rectangle = new Rectangle(CIRCLE_DIAMETER, (ROWS + 1) * CIRCLE_DIAMETER);
-			rectangle.setFill(Color.TRANSPARENT);
-			rectangle.setTranslateX(col * (CIRCLE_DIAMETER + 5) + CIRCLE_DIAMETER / 4);
+    }
 
+    private void insertDisc(Disc disc, int column) {
 
-			rectangle.setOnMouseEntered(event -> rectangle.setFill(Color.valueOf("#eeeeee26")));
-			rectangle.setOnMouseExited(event -> rectangle.setFill(Color.TRANSPARENT));
+        int row = ROWS - 1;
 
-			final int column = col;
-			rectangle.setOnMouseClicked(event -> {
+        while (row >= 0) {
 
-				if(isAllowed) {
-					isAllowed=false;
-					insertDisc(new Disc(isPlayerOne), column);
-				}
-			});
+            if (getDiscIfPresent(row, column) == null)
+                break;
+            row--;
+        }
 
-			rectangleList.add(rectangle);
 
-		}
+        if (row < 0) {
+            return;
+        }
 
-		return rectangleList;
+        insertedDiscArray[row][column] = disc;
+        Board.set(row, column, disc.getFill().toString());
+        Board.print();
 
-	}
+        insertDiscsPane.getChildren().add(disc);
 
-	private void insertDisc(Disc disc, int column) {
+        disc.setTranslateX(column * (CIRCLE_DIAMETER + 5) + 20);
 
-		int row = ROWS - 1;
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5), disc);
+        translateTransition.setToY(row * (CIRCLE_DIAMETER + 5) + 20);
 
-		while (row >= 0) {
+        int currentRow = row;
 
-			if (getDiscIfPresent(row, column) == null)
-				break;
-			row--;
-		}
+        translateTransition.setOnFinished(event -> {
+            isAllowed = true;
 
+            if (gameEnded(currentRow, column)) {
 
-		if (row < 0) {
-			return;
-		}
+                gameOver();
 
-		insertedDiscArray[row][column] = disc;
-		Board.set(row, column, disc.getFill().toString());
-		Board.print();
 
-		insertDiscsPane.getChildren().add(disc);
+            }
+            isPlayerOne = !isPlayerOne;
 
-		disc.setTranslateX(column * (CIRCLE_DIAMETER + 5) + 20);
+            playerNameLabel.setText(isPlayerOne ? PLAYER_ONE : PLAYER_Two);
+            displayScore();
+        });
 
-		TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5), disc);
-		translateTransition.setToY(row * (CIRCLE_DIAMETER + 5) + 20);
+        translateTransition.play();
 
-		int currentRow = row;
+    }
 
+    private void displayScore() {
+        this.score1.setText(String.valueOf(Heuristic.determineScore(discColor1)));
+        this.score2.setText(String.valueOf(Heuristic.determineScore(discColor2)));
+    }
 
-		translateTransition.setOnFinished(event -> {
-			isAllowed=true;
 
-			if (gameEnded(currentRow, column)) {
+    private boolean gameEnded(int row, int column) {
 
-				gameOver();
+        List<Point2D> vertticalPoints = IntStream.rangeClosed(row - 3, row + 3).mapToObj(r -> new Point2D(r, column))
+                .collect(Collectors.toList());
 
+        List<Point2D> horizontalPoints = IntStream.rangeClosed(column - 3, column + 3).mapToObj(c -> new Point2D(row, c))
+                .collect(Collectors.toList());
 
-			}
-			isPlayerOne = !isPlayerOne;
 
-			playerNameLabel.setText(isPlayerOne ? PLAYER_ONE : PLAYER_Two);
-		});
+        Point2D startPoint1 = new Point2D(row - 3, column + 3);
+        List<Point2D> diagonal1Points = IntStream.rangeClosed(0, 6).mapToObj(i -> startPoint1.add(i, -i))
+                .collect(Collectors.toList());
 
-		translateTransition.play();
+        Point2D startPoint2 = new Point2D(row - 3, column - 3);
+        List<Point2D> diagonal2Points = IntStream.rangeClosed(0, 6).mapToObj(i -> startPoint2.add(i, i))
+                .collect(Collectors.toList());
 
-	}
 
+        boolean isEnded = checkCombinations(vertticalPoints) || checkCombinations(horizontalPoints)
+                || checkCombinations(diagonal1Points) || checkCombinations(diagonal2Points);
+        return isEnded;
+    }
 
-	private boolean gameEnded(int row, int column) {
 
-		List<Point2D> vertticalPoints = IntStream.rangeClosed(row - 3, row + 3).mapToObj(r -> new Point2D(r, column))
-				.collect(Collectors.toList());
+    private boolean checkCombinations(List<Point2D> points) {
 
-		List<Point2D> horizontalPoints = IntStream.rangeClosed(column - 3, column + 3).mapToObj(c -> new Point2D(row, c))
-				.collect(Collectors.toList());
+        int chain = 0;
+        for (Point2D point : points
+        ) {
 
 
-		Point2D startPoint1= new Point2D(row-3,column +3);
-		List<Point2D> diagonal1Points = IntStream.rangeClosed(0,6).mapToObj(i-> startPoint1.add(i,-i))
-				.collect(Collectors.toList());
+            int r_ind = (int) point.getX();
+            int c_ind = (int) point.getY();
 
-		Point2D startPoint2= new Point2D(row-3,column -3);
-		List<Point2D> diagonal2Points = IntStream.rangeClosed(0,6).mapToObj(i-> startPoint2.add(i,i))
-				.collect(Collectors.toList());
+            Disc disc = getDiscIfPresent(r_ind, c_ind);
 
+            if (disc != null && disc.isPlayerOneMove == isPlayerOne) {
+                chain++;
 
-		boolean isEnded = checkCombinations(vertticalPoints) || checkCombinations(horizontalPoints)
-				||checkCombinations(diagonal1Points)|| checkCombinations(diagonal2Points);
-		return isEnded;
-	}
+                if (chain == 4) {
+                    return true;
+                }
 
+            } else {
+                chain = 0;
 
-	private boolean checkCombinations(List<Point2D> points) {
 
-		int chain = 0;
-		for (Point2D point : points
-		) {
+            }
 
 
-			int r_ind = (int) point.getX();
-			int c_ind = (int) point.getY();
+        }
+        return false;
 
-			Disc disc = getDiscIfPresent(r_ind, c_ind);
+    }
 
-			if (disc != null && disc.isPlayerOneMove == isPlayerOne) {
-				chain++;
+    private Disc getDiscIfPresent(int row, int column) {
 
-				if (chain == 4) {
-					return true;
-				}
+        if (row >= ROWS || row < 0 || column >= COLUMNS || column < 0)
+            return null;
+        else
+            return insertedDiscArray[row][column];
+    }
 
-			} else {
-				chain = 0;
+    private void gameOver() {
 
+        String winner = isPlayerOne ? PLAYER_ONE : PLAYER_Two;
+        System.out.println("Winner is " + winner);
 
-			}
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Connect Four");
+        alert.setContentText("Want to play again ?");
 
+        alert.setHeaderText("Winner is " + winner);
 
-		}
-		return false;
+        ButtonType yesBtn = new ButtonType("Yes");
+        ButtonType noBtn = new ButtonType("No,Exit");
 
-	}
 
-	private Disc getDiscIfPresent(int row, int column) {
+        alert.getButtonTypes().setAll(yesBtn, noBtn);
 
-		if (row >= ROWS || row < 0 || column >= COLUMNS || column < 0)
-			return null;
-		else
-			return insertedDiscArray[row][column];
-	}
+        Platform.runLater(() -> {
 
-	private void gameOver() {
 
-		String winner = isPlayerOne ? PLAYER_ONE : PLAYER_Two;
-		System.out.println("Winner is " + winner);
+            Optional<ButtonType> btnCLicked = alert.showAndWait();
 
-		Alert alert = new Alert(Alert.AlertType.INFORMATION);
-		alert.setTitle("Connect Four");
-		alert.setContentText("Want to play again ?");
+            if (btnCLicked.isPresent() && btnCLicked.get() == yesBtn) {
+                resetGame();
+            } else {
 
-		alert.setHeaderText("Winner is " + winner);
+                Platform.exit();
+                System.exit(0);
 
-		ButtonType yesBtn = new ButtonType("Yes");
-		ButtonType noBtn = new ButtonType("No,Exit");
 
+            }
 
 
-		alert.getButtonTypes().setAll(yesBtn,noBtn);
+        });
 
-		Platform.runLater(() ->{
 
+    }
 
-			Optional<ButtonType> btnCLicked= alert.showAndWait();
+    public void resetGame() {
+        insertDiscsPane.getChildren().clear();
 
-			if(btnCLicked.isPresent() && btnCLicked.get()==yesBtn){
-				resetGame();
-			}
-			else{
+        for (int row = 0; row < insertedDiscArray.length; row++) {
+            for (int col = 0; col < insertedDiscArray[row].length; col++) {
 
-				Platform.exit();
-				System.exit(0);
+                insertedDiscArray[row][col] = null;
+            }
 
+        }
 
-			}
+        isPlayerOne = true;
+        playerNameLabel.setText(PLAYER_ONE);
+        Board.clear();
+        createPlayground();
+    }
 
 
-		});
+    private static class Disc extends Circle {
 
+        private final boolean isPlayerOneMove;
 
-	}
-	public void resetGame() {
+        public Disc(boolean isPlayerOneMove) {
 
+            this.isPlayerOneMove = isPlayerOneMove;
+            setRadius(CIRCLE_DIAMETER / 2);
+            setCenterX(CIRCLE_DIAMETER / 2);
+            setCenterY(CIRCLE_DIAMETER / 2);
 
-		insertDiscsPane.getChildren().clear();
+            setFill(isPlayerOneMove ? Color.valueOf(discColor1) : Color.valueOf(discColor2));
+        }
 
-		for(int row=0 ; row <insertedDiscArray.length;row++) {
-			for(int col=0 ; col< insertedDiscArray[row].length;col++){
+    }
 
-				insertedDiscArray[row][col]=null;
-			}
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
 
-		}
-
-		isPlayerOne=true;
-
-		playerNameLabel.setText(PLAYER_ONE);
-
-
-		createPlayground();
-
-
-	}
-
-
-	private static class Disc extends Circle {
-
-		private final boolean isPlayerOneMove;
-
-		public Disc(boolean isPlayerOneMove) {
-
-			this.isPlayerOneMove = isPlayerOneMove;
-			setRadius(CIRCLE_DIAMETER / 2);
-			setCenterX(CIRCLE_DIAMETER / 2);
-			setCenterY(CIRCLE_DIAMETER / 2);
-
-			setFill(isPlayerOneMove ? Color.valueOf(discColor1) : Color.valueOf(discColor2));
-		}
-
-	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-
-	}
+    }
 }
