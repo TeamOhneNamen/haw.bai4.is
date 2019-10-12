@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="rootGridPane" style="-fx-background-color: DARKGREY;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ui.Controller">
+<GridPane fx:id="rootGridPane" style="-fx-background-color: DARKGREY;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ui.Controller">
     <columnConstraints>
         <ColumnConstraints />
         <ColumnConstraints maxWidth="328.0" minWidth="265.0" prefWidth="265.0" />
@@ -41,7 +41,7 @@
                   <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
                </VBox.margin>
             </Button>
-                <Label fx:id="playerNameLabel" alignment="CENTER" prefHeight="35.0" prefWidth="324.0" text="Player One" textFill="WHITE">
+                <Label fx:id="playerNameLabel" alignment="CENTER" prefHeight="15.0" prefWidth="265.0" text="Player One" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="29.0" />
                     </font>
@@ -49,7 +49,12 @@
                   <Insets top="70.0" />
                </VBox.margin>
                 </Label>
-                <Label alignment="CENTER" prefHeight="31.0" prefWidth="334.0" text="Turn" textFill="WHITE">
+            <Label fx:id="score1" alignment="CENTER" layoutX="10.0" layoutY="261.0" prefHeight="38.0" prefWidth="128.0" text="0" textFill="WHITE">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+                <Label fx:id="score2" alignment="CENTER" prefHeight="38.0" prefWidth="127.0" text="0" textFill="WHITE">
                     <font>
                         <Font size="26.0" />
                     </font>

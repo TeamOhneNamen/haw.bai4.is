@@ -5,6 +5,8 @@ public class Heuristic {
 
     public static double determineScore(String playerColor){
         return determineHorizontalScore(playerColor);
+        //TODO: vertikale Heuristik
+        //TODO: Diagonale Heuristik
     }
 
     protected static double determineHorizontalScore(String playerColor) {

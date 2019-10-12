@@ -1,0 +1,36 @@
+
+if (is Black) then (yes)
+    
+    :score = 1;
+    :check left Neighbor;
+    if (is Empty) then (yes)
+        :score += 0.5;
+    else (no);
+    endif
+    :check right Neighbor;
+    if (is Black) then (yes)
+        :score = 2;
+        :check right Neighbor;
+        if (is Black) then (yes)
+            :score = 3;
+            :check right Neighbor;
+            if (is Empty) then (yes)
+                :score = 3.5;
+            else (no);
+            endif
+        else (no);
+            if (is Empty) then (yes)
+                :score += 0.5;
+            else (no);
+            endif
+        endif
+    else (no)
+        if (is Empty) then (yes)
+            :score += 0.5;
+        else (no);
+        endif
+    endif
+else (no)
+endif
+
+stop
