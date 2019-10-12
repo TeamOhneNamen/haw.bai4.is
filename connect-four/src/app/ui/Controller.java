@@ -1,5 +1,6 @@
 package app.ui;
 
+import app.logic.Board;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -30,8 +31,8 @@ import java.util.stream.IntStream;
 public class Controller implements Initializable {
 
 
-	private static final int COLUMNS = 7;
-	private static final int ROWS = 6;
+	public static final int COLUMNS = 7;
+	public static final int ROWS = 6;
 	private static final int CIRCLE_DIAMETER = 80;
 	private static final String discColor1 = "WHITE";
 	private static final String discColor2 = "BLACK";
@@ -197,7 +198,8 @@ public class Controller implements Initializable {
 		}
 
 		insertedDiscArray[row][column] = disc;
-
+		Board.set(row, column, disc.getFill().toString());
+		Board.print();
 
 		insertDiscsPane.getChildren().add(disc);
 

@@ -7,15 +7,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/logic/Board.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/logic/Heuristic.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/logic/HeuristicTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ConnectFour/app/Controller$Disc.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ConnectFour/app/Controller.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ConnectFour/app/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ConnectFour/app/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ConnectFour/app/game.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/ui/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/game.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/ui/game.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConnectFour.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ConnectFour.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ConnectFour/app/logic/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ConnectFour/app/logic/Board.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ConnectFour/app/ui/Controller$Disc.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ConnectFour/app/ui/Controller$Disc.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ConnectFour/app/ui/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ConnectFour/app/ui/Controller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/logic/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/logic/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/ui/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/ui/Controller.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -96,31 +96,33 @@
     <session id="788115640">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.opened" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="fxml" value="2" />
-          <entry key="java" value="2" />
+          <entry key="java" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="2" />
+          <entry key="JAVA" value="5" />
           <entry key="XML" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="fxml" value="131" />
-          <entry key="java" value="38" />
+          <entry key="java" value="1613" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="38" />
+          <entry key="JAVA" value="1613" />
           <entry key="XML" value="131" />
         </counts>
       </usages-collector>
@@ -134,8 +136,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.idea/artifacts/ConnectFour_jar.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="12" lean-forward="true" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+            <state>
+              <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -143,8 +145,19 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/logic/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
+            <state relative-caret-position="236">
+              <caret line="53" column="64" selection-start-line="53" selection-start-column="64" selection-end-line="53" selection-end-column="64" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#343#344#0" expanded="true" />
+                <element signature="e#385#386#0" expanded="true" />
+                <element signature="e#815#816#0" expanded="true" />
+                <element signature="e#850#851#0" expanded="true" />
+                <element signature="e#890#891#0" expanded="true" />
+                <element signature="e#928#929#0" expanded="true" />
+                <element signature="e#1350#1351#0" expanded="true" />
+                <element signature="e#1421#1422#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -152,20 +165,41 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/ui/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
-              <caret line="143" column="51" selection-start-line="143" selection-start-column="51" selection-end-line="143" selection-end-column="51" />
+            <state relative-caret-position="3235">
+              <caret line="201" column="20" selection-start-line="201" selection-start-column="20" selection-end-line="201" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/app/ui/game.fxml">
+        <entry file="file://$PROJECT_DIR$/src/app/logic/Heuristic.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
+            <state relative-caret-position="120">
+              <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/logic/HeuristicTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="276">
+              <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/ui/game.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-17">
               <caret line="14" column="68" selection-start-line="14" selection-start-column="68" selection-end-line="14" selection-end-column="68" />
             </state>
           </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder" />
         </entry>
       </file>
     </leaf>
@@ -180,11 +214,11 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>insert</find>
-      <find>insertedDiscArray</find>
       <find>insertDiscsPane</find>
       <find>colo</find>
       <find>Colo</find>
       <find>DARK</find>
+      <find>insertedDiscArray</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -202,8 +236,11 @@
         <option value="$PROJECT_DIR$/src/com/rosh/connectFour/Controller.java" />
         <option value="$PROJECT_DIR$/src/com/rosh/connectFour/Main.java" />
         <option value="$PROJECT_DIR$/src/app/game.fxml" />
-        <option value="$PROJECT_DIR$/src/app/ui/Controller.java" />
         <option value="$PROJECT_DIR$/src/app/ui/game.fxml" />
+        <option value="$PROJECT_DIR$/src/app/ui/Controller.java" />
+        <option value="$PROJECT_DIR$/src/app/logic/Board.java" />
+        <option value="$PROJECT_DIR$/src/app/logic/HeuristicTest.java" />
+        <option value="$PROJECT_DIR$/src/app/logic/Heuristic.java" />
       </list>
     </option>
   </component>
@@ -215,8 +252,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="521" />
-    <option name="y" value="87" />
+    <option name="x" value="520" />
+    <option name="y" value="86" />
     <option name="width" value="845" />
     <option name="height" value="740" />
   </component>
@@ -229,8 +266,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -254,15 +289,25 @@
               <item name="connect-four" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="logic" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="connect-four" type="b2602c69:ProjectViewProjectNode" />
+              <item name="connect-four" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="ui" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="GoToFile.includeJavaFiles" value="false" />
@@ -270,15 +315,18 @@
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="OverrideImplement.combined" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1570824062893" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1570888735975" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -298,7 +346,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main (2)">
+  <component name="RunManager" selected="JUnit.HeuristicTest">
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -367,6 +415,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="HeuristicTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true" show_console_on_std_err="true" show_console_on_std_out="true">
+      <module name="ConnectFour" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="app.logic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="app.logic" />
+      <option name="MAIN_CLASS_NAME" value="app.logic.HeuristicTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="TEST_SEARCH_SCOPE">
@@ -400,9 +468,11 @@
       <item itemvalue="Application.Main" />
       <item itemvalue="Application.Main (1)" />
       <item itemvalue="Application.Main (2)" />
+      <item itemvalue="JUnit.HeuristicTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.HeuristicTest" />
         <item itemvalue="Application.Main (2)" />
         <item itemvalue="Application.Main (1)" />
       </list>
@@ -420,18 +490,60 @@
       <updated>1359379246138</updated>
       <workItem from="1359379250712" duration="1302000" />
       <workItem from="1570820048126" duration="1556000" />
-      <workItem from="1570822342256" duration="1714000" />
+      <workItem from="1570822342256" duration="1758000" />
+      <workItem from="1570875647553" duration="9029000" />
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="HeuristicTest - 2019.10.12 at 15h 43m 09s.xml">
+      <configuration name="HeuristicTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="HeuristicTest - 2019.10.12 at 15h 44m 01s.xml">
+      <configuration name="HeuristicTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="HeuristicTest - 2019.10.12 at 15h 44m 47s.xml">
+      <configuration name="HeuristicTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="HeuristicTest - 2019.10.12 at 15h 45m 01s.xml">
+      <configuration name="HeuristicTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="HeuristicTest - 2019.10.12 at 15h 51m 24s.xml">
+      <configuration name="HeuristicTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="HeuristicTest - 2019.10.12 at 15h 52m 10s.xml">
+      <configuration name="HeuristicTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="HeuristicTest - 2019.10.12 at 15h 53m 33s.xml">
+      <configuration name="HeuristicTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="HeuristicTest - 2019.10.12 at 15h 54m 39s.xml">
+      <configuration name="HeuristicTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="HeuristicTest - 2019.10.12 at 15h 55m 27s.xml">
+      <configuration name="HeuristicTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="HeuristicTest - 2019.10.12 at 15h 57m 03s.xml">
+      <configuration name="HeuristicTest" configurationId="JUnit" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4572000" />
+    <option name="totallyTimeSpent" value="13645000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.18255034" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.1852349" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -440,19 +552,19 @@
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2590604" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3771812" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32885906" />
       <window_info anchor="bottom" id="Application Servers" order="7" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Problems" order="9" />
       <window_info anchor="bottom" id="Changes" order="10" />
       <window_info anchor="bottom" id="Profiler" order="11" />
-      <window_info anchor="bottom" id="Event Log" order="12" />
-      <window_info anchor="bottom" id="Messages" order="13" weight="0.3284553" />
-      <window_info anchor="bottom" id="Terminal" order="14" />
+      <window_info anchor="bottom" id="Event Log" order="12" weight="0.32885906" />
+      <window_info anchor="bottom" id="Messages" order="13" weight="0.3261745" />
+      <window_info anchor="bottom" id="Terminal" order="14" weight="0.32885906" />
       <window_info anchor="bottom" id="Docker" order="15" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="16" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -500,37 +612,65 @@
     <entry file="file://$PROJECT_DIR$/ConnectFour.iml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/.idea/artifacts/ConnectFour_jar.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="12" lean-forward="true" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+        <state>
+          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/ui/game.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-17">
+          <caret line="14" column="68" selection-start-line="14" selection-start-column="68" selection-end-line="14" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/ui/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3235">
+          <caret line="201" column="20" selection-start-line="201" selection-start-column="20" selection-end-line="201" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/logic/Board.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
+        <state relative-caret-position="236">
+          <caret line="53" column="64" selection-start-line="53" selection-start-column="64" selection-end-line="53" selection-end-column="64" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#343#344#0" expanded="true" />
+            <element signature="e#385#386#0" expanded="true" />
+            <element signature="e#815#816#0" expanded="true" />
+            <element signature="e#850#851#0" expanded="true" />
+            <element signature="e#890#891#0" expanded="true" />
+            <element signature="e#928#929#0" expanded="true" />
+            <element signature="e#1350#1351#0" expanded="true" />
+            <element signature="e#1421#1422#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/ui/Controller.java">
+    <entry file="file://$PROJECT_DIR$/src/app/logic/HeuristicTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="143" column="51" selection-start-line="143" selection-start-column="51" selection-end-line="143" selection-end-column="51" />
+        <state relative-caret-position="276">
+          <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/ui/game.fxml">
+    <entry file="file://$PROJECT_DIR$/src/app/logic/Heuristic.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="14" column="68" selection-start-line="14" selection-start-column="68" selection-end-line="14" selection-end-column="68" />
+        <state relative-caret-position="120">
+          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
         </state>
       </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
   </component>
   <component name="masterDetails">
