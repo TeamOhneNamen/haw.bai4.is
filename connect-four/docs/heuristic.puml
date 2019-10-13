@@ -1,36 +1,80 @@
 
 if (is Black) then (yes)
-    
-    :score = 1;
+    :empty Neighbors = 0
+    In A Row += 1;
     :check left Neighbor;
     if (is Empty) then (yes)
-        :score += 0.5;
+        :empty left Neighbors += 1
+        In A Row += 0;
+        if (is Empty) then (yes)
+            :empty left Neighbors += 1
+            In A Row += 0;
+            if (is Empty) then (yes)
+                :empty left Neighbors += 1
+                In A Row += 0;
+            else (no);
+            endif
+        else (no);
+        endif
     else (no);
     endif
     :check right Neighbor;
     if (is Black) then (yes)
-        :score = 2;
+        :empty right Neighbors += 0
+        In A Row += 1;
         :check right Neighbor;
         if (is Black) then (yes)
-            :score = 3;
+            :empty right Neighbors += 0
+            In A Row += 1;
             :check right Neighbor;
             if (is Empty) then (yes)
-                :score = 3.5;
+                :empty right Neighbors += 1
+                In A Row += 0;
             else (no);
             endif
         else (no);
             if (is Empty) then (yes)
-                :score += 0.5;
+                if (is Empty) then (yes)
+                    :empty right Neighbors += 1
+                    In A Row += 0;
+                    if (is Empty) then (yes)
+                        :empty right Neighbors += 1
+                        In A Row += 0;
+                    else (no);
+                    endif
+                else (no);
+                endif
             else (no);
             endif
         endif
     else (no)
         if (is Empty) then (yes)
-            :score += 0.5;
+            if (is Empty) then (yes)
+                :empty right Neighbors += 1
+                In A Row += 0;
+                if (is Empty) then (yes)
+                    :empty right Neighbors += 1
+                    In A Row += 0;
+                else (no);
+                endif
+            else (no);
+            endif
         else (no);
         endif
     endif
 else (no)
 endif
-
+if (empty right Neighbors+empty left Neighbors+In A Row >= 4) then (yes)
+    :score = empty right Neighbors;
+    if (empty right Neighbors > 0) then (yes)
+        :score += 0.5;
+    else (no);
+    endif
+    if (empty left Neighbors > 0) then (yes)
+        :score += 0.5;
+    else (no);
+    endif
+else (no);
+:score = 0;
+endif
 stop
