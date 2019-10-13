@@ -13,7 +13,6 @@ public class Heuristic {
         int emptyLeftNeighbors = 0;
         int emptyRightNeighbors = 0;
         int inARow = 0;
-        double score = 0;
         for (int i = 0; i < Board.rowLength(); i++) {
             int j = 0;
             int column;
@@ -43,7 +42,7 @@ public class Heuristic {
                             inARow++;
                             // 3 in a row with space to the right
                             if (Board.NO_COLOR.equals(Board.get(i, column + 3))) {
-                                score += 0.5;
+                                emptyRightNeighbors++;
                             }
                             System.out.println("3 in a row with space to the right");
                             j += 4;
@@ -82,6 +81,7 @@ public class Heuristic {
     }
 
     private static double evaluate(int emptyLeftNeighbors, int emptyRightNeighbors, int inARow) {
+        System.out.println("Left: "+ emptyLeftNeighbors + " Right: "+ emptyRightNeighbors + " In A Row: " + inARow);
         double score = 0.0;
         if(emptyLeftNeighbors+emptyRightNeighbors+inARow >3 ){
             score = inARow;
