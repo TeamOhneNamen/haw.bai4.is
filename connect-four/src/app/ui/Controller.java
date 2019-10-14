@@ -20,7 +20,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 
-import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,12 +30,13 @@ import java.util.stream.IntStream;
 
 public class Controller implements Initializable {
 
-    public static Board board = new Board();
+
     public static final int COLUMNS = 7;
     public static final int ROWS = 6;
     private static final int CIRCLE_DIAMETER = 80;
     private static final String discColor1 = "0x000000ff";
     private static final String discColor2 = "0xffffffff";
+    public static Board board = new Board(discColor2, discColor1);
 
     public static String PLAYER_ONE = "Player One";
     public static String PLAYER_Two = "Player Two";
@@ -192,9 +192,7 @@ public class Controller implements Initializable {
             return;
         }
 
-        insertedDiscArray[row][column] = disc;
-        board.set(row, column, disc.getFill().toString());
-        board.print();
+
 
         insertDiscsPane.getChildren().add(disc);
 
@@ -217,6 +215,11 @@ public class Controller implements Initializable {
             isPlayerOne = !isPlayerOne;
 
             playerNameLabel.setText(isPlayerOne ? PLAYER_ONE : PLAYER_Two);
+
+            insertedDiscArray[currentRow][column] = disc;
+            board.set(currentRow, column, disc.getFill().toString());
+            board.print();
+
             displayScore();
         });
 
