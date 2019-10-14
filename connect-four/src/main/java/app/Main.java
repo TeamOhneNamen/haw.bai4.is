@@ -17,7 +17,14 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/game.fxml"));
+        FXMLLoader loader;
+	    if(System.getProperty("os.name").startsWith("Windows")){
+            System.out.println("Windows");
+            loader = new FXMLLoader(getClass().getResource("/game.fxml"));
+        }else{
+            System.out.println("OTHER");
+            loader = new FXMLLoader(getClass().getResource("/game.fxml"));
+        }
 		GridPane rootGridPane = loader.load();
 
 		controller = loader.getController();

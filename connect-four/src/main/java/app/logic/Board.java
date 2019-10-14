@@ -139,4 +139,5 @@ public class Board {
     public void clear() {
         this.board = new String[Controller.ROWS][Controller.COLUMNS];
     }
+
 }

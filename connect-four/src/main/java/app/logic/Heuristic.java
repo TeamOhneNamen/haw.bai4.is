@@ -6,24 +6,42 @@ import app.ui.Controller;
 public class Heuristic {
 
     public static double determineScore(String playerColor){
-        return determineHorizontalScore(Controller.board, playerColor);
+        determineHorizontalScore(Controller.board, playerColor);
         return determineVerticalScore(Controller.board, playerColor);
         //TODO: vertikale Heuristik
         //TODO: Diagonale Heuristik
     }
 
-    protected static double determineVerticalScore(Board board, String playerColor){
+    public static double determineVerticalScore(Board board, String playerColor){
+        double score = 0;
+        System.out.println(playerColor);
+        board.print();
         for (int i = 0; i < Controller.ROWS; i++) {
             for (int j = 0; j < Controller.COLUMNS; j++) {
-                if(board.get(i, j).equals(playerColor) && board.get(i, j+1)==null){
-                    System.out.println(i + ":" + j);
+
+                if(board.get(i, j).equals(board.NO_COLOR) || board.get(i, j).equals(playerColor)){
+                    if(board.get(i, j-1)!=null){
+                        if(board.get(i, j-1).equals(board.NO_COLOR) || board.get(i, j-1).equals(playerColor)){
+                            if(board.get(i, j-2)!=null){
+                                if(board.get(i, j-2).equals(board.NO_COLOR) || board.get(i, j-2).equals(playerColor)){
+                                    if(board.get(i, j-3)!=null){
+                                        if(board.get(i, j-3).equals(board.NO_COLOR) || board.get(i, j-3).equals(playerColor)){
+                                            System.out.println(i + ":" + j);
+                                            score++;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                 }
             }
         }
         return 0;
     }
 
-    protected static double determineHorizontalScore(Board board, String playerColor) {
+    public static double determineHorizontalScore(Board board, String playerColor) {
         int emptyLeftNeighbors = 0;
         int emptyRightNeighbors = 0;
         int inARow = 0;
@@ -94,7 +112,7 @@ public class Heuristic {
         return evaluate(emptyLeftNeighbors, emptyRightNeighbors, inARow);
     }
 
-    private static double evaluate(int emptyLeftNeighbors, int emptyRightNeighbors, int inARow) {
+    public static double evaluate(int emptyLeftNeighbors, int emptyRightNeighbors, int inARow) {
         System.out.println("Left: "+ emptyLeftNeighbors + " Right: "+ emptyRightNeighbors + " In A Row: " + inARow);
         double score = 0.0;
         if(emptyLeftNeighbors+emptyRightNeighbors+inARow >3 ){
