@@ -1,0 +1,22 @@
+@startuml
+title Evaluate\n
+if (In A Row > 3) then (yes)
+        :score = 100;
+    else (no);
+        if (empty right Neighbors+empty left Neighbors+In A Row >= 4) then (yes)
+            :score = empty right Neighbors;
+            if (empty right Neighbors > 0) then (yes)
+                :score += 0.5;
+            else (no);
+            endif
+            if (empty left Neighbors > 0) then (yes)
+                :score += 0.5;
+            else (no);
+            endif
+        else (no);
+        :score = 0;
+        endif
+    endif
+
+stop
+@enduml

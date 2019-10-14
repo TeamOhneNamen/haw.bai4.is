@@ -6,10 +6,12 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="1: heuristik als fsm verbessert + umsetzung im Code fehlerhaft">
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="1: heuristik Code verbessert + neuer Testfall">
+      <change afterPath="$PROJECT_DIR$/docs/heuristic_1_check_left.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/heuristic_2_check_right.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/heuristic_3_evaluate.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/logic/Heuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/logic/Heuristic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/logic/HeuristicTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/logic/HeuristicTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/heuristic.puml" beforeDir="false" afterPath="$PROJECT_DIR$/docs/heuristic.puml" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -90,12 +92,13 @@
     <session id="788115640">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="5" />
           <entry key="project.open.time.10" value="1" />
+          <entry key="project.open.time.13" value="2" />
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.26" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.opened" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -103,12 +106,14 @@
           <entry key="fxml" value="2" />
           <entry key="java" value="5" />
           <entry key="png" value="1" />
+          <entry key="puml" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Image" value="1" />
           <entry key="JAVA" value="5" />
+          <entry key="PlantUML file" value="5" />
           <entry key="XML" value="2" />
         </counts>
       </usages-collector>
@@ -116,13 +121,15 @@
         <counts>
           <entry key="fxml" value="131" />
           <entry key="java" value="2179" />
-          <entry key="txt" value="112" />
+          <entry key="puml" value="280" />
+          <entry key="txt" value="139" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JAVA" value="2179" />
-          <entry key="PLAIN_TEXT" value="112" />
+          <entry key="PLAIN_TEXT" value="139" />
+          <entry key="PlantUML file" value="280" />
           <entry key="XML" value="131" />
         </counts>
       </usages-collector>
@@ -136,7 +143,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/logic/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
+            <state relative-caret-position="880">
               <caret line="53" column="64" selection-start-line="53" selection-start-column="64" selection-end-line="53" selection-end-column="64" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -148,9 +155,45 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docs/heuristic.puml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="160">
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docs/heuristic_2_check_right.puml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="20">
+              <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docs/heuristic_1_check_left.puml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="20">
+              <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/docs/heuristic_3_evaluate.puml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="20">
+              <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/ui/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1963">
+            <state relative-caret-position="3980">
               <caret line="226" column="33" selection-start-line="226" selection-start-column="33" selection-end-line="226" selection-end-column="33" />
             </state>
           </provider>
@@ -159,16 +202,16 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/logic/Heuristic.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="40">
+            <state relative-caret-position="280">
               <caret line="14" column="23" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/logic/HeuristicTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
+            <state relative-caret-position="680">
               <caret line="36" column="22" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -229,6 +272,10 @@
         <option value="$PROJECT_DIR$/src/app/ui/game.fxml" />
         <option value="$PROJECT_DIR$/src/app/logic/Heuristic.java" />
         <option value="$PROJECT_DIR$/src/app/logic/HeuristicTest.java" />
+        <option value="$PROJECT_DIR$/docs/heuristic_1_check_left.puml" />
+        <option value="$PROJECT_DIR$/docs/heuristic.puml" />
+        <option value="$PROJECT_DIR$/docs/heuristic_2_check_right.puml" />
+        <option value="$PROJECT_DIR$/docs/heuristic_3_evaluate.puml" />
       </list>
     </option>
   </component>
@@ -240,9 +287,9 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="952" />
-    <option name="width" value="977" />
-    <option name="height" value="1088" />
+    <option name="x" value="950" />
+    <option name="width" value="979" />
+    <option name="height" value="1090" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectReloadState">
@@ -253,7 +300,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -296,6 +342,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -311,14 +358,14 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1570993793566" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1571047687088" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -485,7 +532,9 @@
       <workItem from="1570822342256" duration="1758000" />
       <workItem from="1570875647553" duration="11417000" />
       <workItem from="1570893151781" duration="807000" />
-      <workItem from="1570970522203" duration="2236000" />
+      <workItem from="1570970522203" duration="2462000" />
+      <workItem from="1571039632804" duration="1307000" />
+      <workItem from="1571041935523" duration="2246000" />
     </task>
     <task id="LOCAL-00001" summary="1: simple heuristik fuer zeilen">
       <created>1570888880539</created>
@@ -515,16 +564,17 @@
       <option name="project" value="LOCAL" />
       <updated>1570973478316</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="1: heuristik Code verbessert + neuer Testfall">
+      <created>1570993999361</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1570993999361</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="HeuristicTest - 2019.10.12 at 15h 57m 03s.xml">
-      <configuration name="HeuristicTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="HeuristicTest - 2019.10.12 at 15h 57m 57s.xml">
-      <configuration name="HeuristicTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="HeuristicTest - 2019.10.12 at 15h 58m 40s.xml">
       <configuration name="HeuristicTest" configurationId="JUnit" />
     </history-entry>
@@ -549,9 +599,15 @@
     <history-entry file="HeuristicTest - 2019.10.13 at 21h 08m 56s.xml">
       <configuration name="HeuristicTest" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="HeuristicTest - 2019.10.13 at 21h 09m 55s.xml">
+      <configuration name="HeuristicTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="HeuristicTest - 2019.10.14 at 09h 59m 24s.xml">
+      <configuration name="HeuristicTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19076000" />
+    <option name="totallyTimeSpent" value="22855000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -566,7 +622,7 @@
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" weight="0.39328858" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" weight="0.16577181" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -575,7 +631,7 @@
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.47919464" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.25503355" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -590,7 +646,6 @@
       <window_info anchor="bottom" id="Terminal" order="14" weight="0.32885906" />
       <window_info anchor="bottom" id="Docker" order="15" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="16" show_stripe_button="false" />
-      <window_info anchor="right" id="PlantUML" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -602,6 +657,7 @@
       <window_info anchor="right" id="Capture Analysis" order="8" />
       <window_info anchor="right" id="Palette&#9;" order="9" />
       <window_info anchor="right" id="Theme Preview" order="10" />
+      <window_info anchor="right" id="PlantUML" order="11" visible="true" weight="0.55838925" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -617,7 +673,8 @@
     <MESSAGE value="1: simple heuristik wird angezeigt" />
     <MESSAGE value="1: heuristik als fsm" />
     <MESSAGE value="1: heuristik als fsm verbessert + umsetzung im Code fehlerhaft" />
-    <option name="LAST_COMMIT_MESSAGE" value="1: heuristik als fsm verbessert + umsetzung im Code fehlerhaft" />
+    <MESSAGE value="1: heuristik Code verbessert + neuer Testfall" />
+    <option name="LAST_COMMIT_MESSAGE" value="1: heuristik Code verbessert + neuer Testfall" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -647,14 +704,6 @@
     <entry file="file://$PROJECT_DIR$/docs/heuristic.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/ui/game.fxml">
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="14" column="115" selection-start-line="14" selection-start-column="115" selection-end-line="14" selection-end-column="115" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.idea/artifacts/ConnectFour_jar.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
@@ -664,7 +713,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/logic/Board.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
+        <state relative-caret-position="880">
           <caret line="53" column="64" selection-start-line="53" selection-start-column="64" selection-end-line="53" selection-end-column="64" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -676,25 +725,61 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/ui/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1963">
+        <state relative-caret-position="3980">
           <caret line="226" column="33" selection-start-line="226" selection-start-column="33" selection-end-line="226" selection-end-column="33" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/logic/Heuristic.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
+        <state relative-caret-position="280">
           <caret line="14" column="23" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/logic/HeuristicTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
+        <state relative-caret-position="680">
           <caret line="36" column="22" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/ui/game.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="14" column="115" selection-start-line="14" selection-start-column="115" selection-end-line="14" selection-end-column="115" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/heuristic.puml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/heuristic_1_check_left.puml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/heuristic_2_check_right.puml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/heuristic_3_evaluate.puml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="1" column="14" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -757,7 +842,6 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>

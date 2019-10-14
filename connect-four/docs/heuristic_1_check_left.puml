@@ -1,0 +1,19 @@
+@startuml
+title Check Left\n
+    :check left Neighbor;
+    if (is Empty) then (yes)
+        :empty left Neighbors += 1
+        In A Row += 0;
+        if (is Empty) then (yes)
+            :empty left Neighbors += 1
+            In A Row += 0;
+            if (is Empty) then (yes)
+                :empty left Neighbors += 1
+                In A Row += 0;
+            else (no);
+            endif
+        else (no);
+        endif
+    else (no);
+    endif
+@enduml

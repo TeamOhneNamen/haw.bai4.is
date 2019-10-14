@@ -1,0 +1,55 @@
+@startuml
+title Check Right\n
+:check right Neighbor (root + 1);
+    if (is Black) then (yes)
+        :empty right Neighbors += 0
+        In A Row += 1;
+        :check right Neighbor (root + 2);
+        if (is Black) then (yes)
+            :empty right Neighbors += 0
+            In A Row += 1;
+            :check right Neighbor(root + 3);
+            if (is Black) then (yes)
+                :empty right Neighbors += 1
+                In A Row += 1;
+            else (no);
+                if (is Empty) then (yes)
+                    :empty right Neighbors += 1
+                    In A Row += 0;
+                else (no);
+                endif
+            endif
+        else (no);
+            if (is Empty) then (yes)
+                if (is Empty) then (yes)
+                    :empty right Neighbors += 1
+                    In A Row += 0;
+                    if (is Empty) then (yes)
+                        :empty right Neighbors += 1
+                        In A Row += 0;
+                    else (no);
+                    endif
+                else (no);
+                endif
+            else (no);
+            endif
+        endif
+    else (no)
+        if (is Empty) then (yes)
+            if (is Empty) then (yes)
+                :empty right Neighbors += 1
+                In A Row += 0;
+                if (is Empty) then (yes)
+                    :empty right Neighbors += 1
+                    In A Row += 0;
+                else (no);
+                endif
+            else (no);
+            endif
+        else (no);
+        endif
+    endif
+:return
+empty right Neighbors
+In A Row;
+@enduml
