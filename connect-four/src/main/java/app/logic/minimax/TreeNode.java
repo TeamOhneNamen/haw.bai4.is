@@ -1,5 +1,7 @@
 package app.logic.minimax;
 
+import app.logic.Board;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,6 +32,10 @@ public class TreeNode<T> {
 
     public TreeNode<T> addChild(T child) {
         TreeNode<T> childNode = new TreeNode<T>(child);
+        return this.addChildNode(childNode);
+    }
+
+    public TreeNode<T> addChildNode(TreeNode<T> childNode) {
         childNode.parent = this;
         this.children.add(childNode);
         this.registerChildForSearch(childNode);
@@ -54,4 +60,11 @@ public class TreeNode<T> {
         return data != null ? data.toString() : "[data null]";
     }
 
+    //https://www.javagists.com/java-tree-data-structure
+    public static <T> void printTree(TreeNode<T> node, String appender) {
+        //TODO Print to .dot language
+        System.out.print(appender);
+        ((Board) node.data).print();
+        node.children.forEach(each ->  printTree(each, appender + appender));
+    }
 }
