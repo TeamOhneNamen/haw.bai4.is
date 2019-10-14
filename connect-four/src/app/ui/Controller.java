@@ -31,7 +31,7 @@ import java.util.stream.IntStream;
 
 public class Controller implements Initializable {
 
-
+    public static Board board = new Board();
     public static final int COLUMNS = 7;
     public static final int ROWS = 6;
     private static final int CIRCLE_DIAMETER = 80;
@@ -193,8 +193,8 @@ public class Controller implements Initializable {
         }
 
         insertedDiscArray[row][column] = disc;
-        Board.set(row, column, disc.getFill().toString());
-        Board.print();
+        board.set(row, column, disc.getFill().toString());
+        board.print();
 
         insertDiscsPane.getChildren().add(disc);
 
@@ -344,7 +344,7 @@ public class Controller implements Initializable {
 
         isPlayerOne = true;
         playerNameLabel.setText(PLAYER_ONE);
-        Board.clear();
+        board.clear();
         createPlayground();
     }
 

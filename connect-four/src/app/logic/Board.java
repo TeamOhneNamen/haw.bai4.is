@@ -8,17 +8,17 @@ import java.util.Arrays;
 // stores just the color of the disc
 // for using it in the heuristic
 public class Board {
-    private static String[][] board = new String[Controller.ROWS][Controller.COLUMNS];
-    public static final String NO_COLOR = "NONE";
+    private String[][] board = new String[Controller.ROWS][Controller.COLUMNS];
+    public final String NO_COLOR = "NONE";
 
-    public static void set(int row, int column, String value) {
-        board[row][column] = value;
+    public void set(int row, int column, String value) {
+        this.board[row][column] = value;
     }
 
-    public static String get(int row, int column) {
+    public String get(int row, int column) {
         String color;
         try {
-            color = board[row][column];
+            color = this.board[row][column];
             if(null == color){
                 color = NO_COLOR;
             }
@@ -27,16 +27,28 @@ public class Board {
         }
         return color;
     }
+    //returns if the value could be inserted in the given line
+    public boolean insertInLine(int column, String value) {
+        boolean inserted = false;
+        int row = 0;
+        while(!inserted || row < columnLength()){
+            if(null == this.board[row][column]){
+                this.board[row][column] = value;
+                inserted = true;
+            }
+        }
+        return inserted;
+    }
 
-    public static int rowLength() {
+    public int rowLength() {
         return board.length;
     }
 
-    public static int columnLength() {
-        return board[0].length;
+    public int columnLength() {
+        return this.board[0].length;
     }
 
-    public static void print() {
+    public void print() {
         for (int i = 0; i < rowLength(); i++) {
             System.out.print("[");
             printRow( i);
@@ -45,12 +57,12 @@ public class Board {
         System.out.println();
     }
 
-    public static void printRow(int row) {
+    public void printRow(int row) {
         for (int j = 0; j < rowLength(); j++) {
-            System.out.print(" " + board[row][j]);
+            System.out.print(" " + this.board[row][j]);
         }
     }
-    public static void clear() {
-        board = new String[Controller.ROWS][Controller.COLUMNS];
+    public void clear() {
+        this.board = new String[Controller.ROWS][Controller.COLUMNS];
     }
 }

@@ -8,32 +8,32 @@ public class HeuristicTest {
 
     @Test
     public void horizontalScoreFirstFieldsFilled(){
-        Board.clear();
+        Board board = new Board();
         final String color = "BLACK";
-        Board.set(0,0, color);
-        Board.set(0,1, color);
-        Board.set(0,2, color);
-        assertEquals(3.5,Heuristic.determineHorizontalScore(color), 0.0);
+        board.set(0,0, color);
+        board.set(0,1, color);
+        board.set(0,2, color);
+        assertEquals(3.5,Heuristic.determineHorizontalScore(board, color), 0.0);
     }
 
     @Test
     public void horizontalScoreNotFirstFieldsFilled(){
-        Board.clear();
+        Board board = new Board();
         final String color = "BLACK";
-        Board.set(0,1, color);
-        Board.set(0,2, color);
-        Board.set(0,3, color);
-        assertEquals(4,Heuristic.determineHorizontalScore(color), 0.0);
+        board.set(0,1, color);
+        board.set(0,2, color);
+        board.set(0,3, color);
+        assertEquals(4,Heuristic.determineHorizontalScore(board, color), 0.0);
     }
 
     @Test
     public void horizontalScoreNoChanceToConnectFour(){
-        Board.clear();
+        Board board = new Board();
         final String color = "BLACK";
         final String color2 = "WHITE";
-        Board.set(0,1, color);
-        Board.set(0,2, color);
-        Board.set(0,3, color2);
-        assertEquals(0,Heuristic.determineHorizontalScore(color), 0.0);
+        board.set(0,1, color);
+        board.set(0,2, color);
+        board.set(0,3, color2);
+        assertEquals(0,Heuristic.determineHorizontalScore(board, color), 0.0);
     }
 }
