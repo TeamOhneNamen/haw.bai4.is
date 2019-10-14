@@ -6,13 +6,12 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="1: Board als Objekt im Controller">
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="1: Board verbessert fuer Minimax">
+      <change afterPath="$PROJECT_DIR$/src/app/logic/BoardTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ConnectFour/app/logic/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ConnectFour/app/logic/Board.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ConnectFour/app/ui/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ConnectFour/app/ui/Controller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ConnectFour/app/ui/Controller$Disc.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ConnectFour/app/ui/Controller$Disc.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/logic/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/logic/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/logic/HeuristicTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/logic/HeuristicTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/ui/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/ui/Controller.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -105,7 +104,7 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="fxml" value="2" />
-          <entry key="java" value="11" />
+          <entry key="java" value="13" />
           <entry key="png" value="1" />
           <entry key="puml" value="5" />
         </counts>
@@ -113,7 +112,7 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Image" value="1" />
-          <entry key="JAVA" value="11" />
+          <entry key="JAVA" value="13" />
           <entry key="PlantUML file" value="5" />
           <entry key="XML" value="2" />
         </counts>
@@ -121,15 +120,15 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="fxml" value="131" />
-          <entry key="java" value="3832" />
+          <entry key="java" value="4776" />
           <entry key="puml" value="288" />
-          <entry key="txt" value="200" />
+          <entry key="txt" value="223" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="3832" />
-          <entry key="PLAIN_TEXT" value="200" />
+          <entry key="JAVA" value="4776" />
+          <entry key="PLAIN_TEXT" value="223" />
           <entry key="PlantUML file" value="288" />
           <entry key="XML" value="131" />
         </counts>
@@ -144,23 +143,33 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/logic/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1103">
-              <caret line="43" column="8" selection-start-line="43" selection-start-column="8" selection-end-line="43" selection-end-column="8" />
+            <state relative-caret-position="120">
+              <caret line="101" column="54" selection-start-line="101" selection-start-column="28" selection-end-line="101" selection-end-column="54" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#495#496#0" expanded="true" />
-                <element signature="e#528#529#0" expanded="true" />
-                <element signature="e#840#841#0" expanded="true" />
-                <element signature="e#899#900#0" expanded="true" />
-                <element signature="e#1251#1252#0" expanded="true" />
-                <element signature="e#1305#1306#0" expanded="true" />
-                <element signature="e#2269#2276#0" expanded="true" />
-                <element signature="e#2032#2033#0" expanded="true" />
-                <element signature="e#2067#2068#0" expanded="true" />
-                <element signature="e#2100#2101#0" expanded="true" />
-                <element signature="e#2143#2144#0" expanded="true" />
-                <element signature="e#2546#2547#0" expanded="true" />
-                <element signature="e#2622#2623#0" expanded="true" />
+                <element signature="e#1421#1422#0" expanded="true" />
+                <element signature="e#1475#1476#0" expanded="true" />
+                <element signature="e#1537#1538#0" expanded="true" />
+                <element signature="e#1591#1592#0" expanded="true" />
+                <element signature="e#3161#3168#0" expanded="true" />
+                <element signature="e#3683#3684#0" expanded="true" />
+                <element signature="e#3718#3719#0" expanded="true" />
+                <element signature="e#3751#3752#0" expanded="true" />
+                <element signature="e#3794#3795#0" expanded="true" />
+                <element signature="e#4197#4198#0" expanded="true" />
+                <element signature="e#4273#4274#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/app/logic/BoardTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="15" column="45" selection-start-line="15" selection-start-column="45" selection-end-line="15" selection-end-column="45" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -215,11 +224,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/logic/HeuristicTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
+            <state relative-caret-position="160">
+              <caret line="8" selection-start-line="8" selection-end-line="9" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -259,6 +268,9 @@
       <find>score</find>
       <find>Board</find>
       <find>black2</find>
+      <find>sys</find>
+      <find>duplicate()</find>
+      <find>print</find>
     </findStrings>
     <replaceStrings>
       <replace>board</replace>
@@ -290,9 +302,11 @@
         <option value="$PROJECT_DIR$/src/app/logic/minimax/TreeNode.java" />
         <option value="$PROJECT_DIR$/src/app/logic/Heuristic.java" />
         <option value="$PROJECT_DIR$/src/app/logic/minimax/MiniMax.java" />
-        <option value="$PROJECT_DIR$/src/app/logic/Board.java" />
         <option value="$PROJECT_DIR$/src/app/ui/Controller.java" />
         <option value="$PROJECT_DIR$/src/app/logic/HeuristicTest.java" />
+        <option value="$PROJECT_DIR$/src/app/logic/minimax/MiniMaxTest.java" />
+        <option value="$PROJECT_DIR$/src/app/logic/Board.java" />
+        <option value="$PROJECT_DIR$/src/app/logic/BoardTest.java" />
       </list>
     </option>
   </component>
@@ -348,7 +362,19 @@
               <item name="connect-four" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="logic" type="462c0819:PsiDirectoryNode" />
+              <item name="minimax" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="connect-four" type="b2602c69:ProjectViewProjectNode" />
+              <item name="connect-four" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="ui" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="connect-four" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
@@ -370,14 +396,14 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1571052294096" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1571056583866" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
-    <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
+    <property name="settings.editor.selected.configurable" value="preferences.JavaFX" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -397,7 +423,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.HeuristicTest">
+  <component name="RunManager" selected="JUnit.BoardTest">
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -466,6 +492,24 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="BoardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ConnectFour" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="app.logic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="app.logic" />
+      <option name="MAIN_CLASS_NAME" value="app.logic.BoardTest" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="HeuristicTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true" show_console_on_std_err="true" show_console_on_std_out="true">
       <module name="ConnectFour" />
       <extension name="coverage">
@@ -478,6 +522,24 @@
       <option name="MAIN_CLASS_NAME" value="app.logic.HeuristicTest" />
       <option name="METHOD_NAME" value="" />
       <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MiniMaxTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ConnectFour" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="app.logic.minimax.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="app.logic.minimax" />
+      <option name="MAIN_CLASS_NAME" value="app.logic.minimax.MiniMaxTest" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="moduleWithDependencies" />
@@ -520,10 +582,14 @@
       <item itemvalue="Application.Main (1)" />
       <item itemvalue="Application.Main (2)" />
       <item itemvalue="JUnit.HeuristicTest" />
+      <item itemvalue="JUnit.MiniMaxTest" />
+      <item itemvalue="JUnit.BoardTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.BoardTest" />
         <item itemvalue="JUnit.HeuristicTest" />
+        <item itemvalue="JUnit.MiniMaxTest" />
         <item itemvalue="Application.Main (2)" />
         <item itemvalue="Application.Main (1)" />
       </list>
@@ -546,7 +612,7 @@
       <workItem from="1570893151781" duration="807000" />
       <workItem from="1570970522203" duration="2462000" />
       <workItem from="1571039632804" duration="1307000" />
-      <workItem from="1571041935523" duration="6657000" />
+      <workItem from="1571041935523" duration="10923000" />
     </task>
     <task id="LOCAL-00001" summary="1: simple heuristik fuer zeilen">
       <created>1570888880539</created>
@@ -597,43 +663,50 @@
       <option name="project" value="LOCAL" />
       <updated>1571050202444</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="1: Board verbessert fuer Minimax">
+      <created>1571052364841</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1571052364841</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="HeuristicTest - 2019.10.12 at 15h 58m 58s.xml">
-      <configuration name="HeuristicTest" configurationId="JUnit" />
+    <history-entry file="BoardTest - 2019.10.14 at 14h 22m 15s.xml">
+      <configuration name="BoardTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="HeuristicTest - 2019.10.12 at 16h 14m 24s.xml">
-      <configuration name="HeuristicTest" configurationId="JUnit" />
+    <history-entry file="BoardTest - 2019.10.14 at 14h 23m 00s.xml">
+      <configuration name="BoardTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="HeuristicTest - 2019.10.13 at 15h 31m 36s.xml">
-      <configuration name="HeuristicTest" configurationId="JUnit" />
+    <history-entry file="BoardTest - 2019.10.14 at 14h 23m 14s.xml">
+      <configuration name="BoardTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="HeuristicTest - 2019.10.13 at 15h 33m 54s.xml">
-      <configuration name="HeuristicTest" configurationId="JUnit" />
+    <history-entry file="BoardTest - 2019.10.14 at 14h 23m 37s.xml">
+      <configuration name="BoardTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="HeuristicTest - 2019.10.13 at 15h 34m 13s.xml">
-      <configuration name="HeuristicTest" configurationId="JUnit" />
+    <history-entry file="BoardTest - 2019.10.14 at 14h 25m 49s.xml">
+      <configuration name="BoardTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="HeuristicTest - 2019.10.13 at 15h 34m 40s.xml">
-      <configuration name="HeuristicTest" configurationId="JUnit" />
+    <history-entry file="BoardTest - 2019.10.14 at 14h 26m 59s.xml">
+      <configuration name="BoardTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="HeuristicTest - 2019.10.13 at 21h 08m 56s.xml">
-      <configuration name="HeuristicTest" configurationId="JUnit" />
+    <history-entry file="BoardTest - 2019.10.14 at 14h 28m 36s.xml">
+      <configuration name="BoardTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="HeuristicTest - 2019.10.13 at 21h 09m 55s.xml">
-      <configuration name="HeuristicTest" configurationId="JUnit" />
+    <history-entry file="BoardTest - 2019.10.14 at 14h 33m 10s.xml">
+      <configuration name="BoardTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="HeuristicTest - 2019.10.14 at 09h 59m 24s.xml">
-      <configuration name="HeuristicTest" configurationId="JUnit" />
+    <history-entry file="BoardTest - 2019.10.14 at 14h 35m 11s.xml">
+      <configuration name="BoardTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="HeuristicTest - 2019.10.14 at 12h 49m 29s.xml">
-      <configuration name="HeuristicTest" configurationId="JUnit" />
+    <history-entry file="BoardTest - 2019.10.14 at 14h 35m 27s.xml">
+      <configuration name="BoardTest" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27266000" />
+    <option name="totallyTimeSpent" value="31532000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -657,7 +730,7 @@
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.25503355" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.37181208" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -740,7 +813,8 @@
     <MESSAGE value="1: heuristik Code verbessert + neuer Testfall" />
     <MESSAGE value="1: heuristik docs verbessert und aufgeteilt" />
     <MESSAGE value="1: Board als Objekt im Controller" />
-    <option name="LAST_COMMIT_MESSAGE" value="1: Board als Objekt im Controller" />
+    <MESSAGE value="1: Board verbessert fuer Minimax" />
+    <option name="LAST_COMMIT_MESSAGE" value="1: Board verbessert fuer Minimax" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -834,17 +908,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/logic/minimax/MiniMax.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
-          <folding>
-            <element signature="e#237#238#0" expanded="true" />
-            <element signature="e#273#274#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/logic/minimax/TreeNode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1029">
@@ -861,6 +924,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/logic/HeuristicTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="8" selection-start-line="8" selection-end-line="9" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/logic/minimax/MiniMax.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
+          <folding>
+            <element signature="e#237#238#0" expanded="true" />
+            <element signature="e#273#274#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/ui/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="277">
@@ -868,33 +952,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/logic/Board.java">
+    <entry file="file://$PROJECT_DIR$/src/app/logic/minimax/MiniMaxTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1103">
-          <caret line="43" column="8" selection-start-line="43" selection-start-column="8" selection-end-line="43" selection-end-column="8" />
+        <state relative-caret-position="220">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#495#496#0" expanded="true" />
-            <element signature="e#528#529#0" expanded="true" />
-            <element signature="e#840#841#0" expanded="true" />
-            <element signature="e#899#900#0" expanded="true" />
-            <element signature="e#1251#1252#0" expanded="true" />
-            <element signature="e#1305#1306#0" expanded="true" />
-            <element signature="e#2269#2276#0" expanded="true" />
-            <element signature="e#2032#2033#0" expanded="true" />
-            <element signature="e#2067#2068#0" expanded="true" />
-            <element signature="e#2100#2101#0" expanded="true" />
-            <element signature="e#2143#2144#0" expanded="true" />
-            <element signature="e#2546#2547#0" expanded="true" />
-            <element signature="e#2622#2623#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/logic/HeuristicTest.java">
+    <entry file="file://$PROJECT_DIR$/src/app/logic/Board.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
+        <state relative-caret-position="120">
+          <caret line="101" column="54" selection-start-line="101" selection-start-column="28" selection-end-line="101" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1421#1422#0" expanded="true" />
+            <element signature="e#1475#1476#0" expanded="true" />
+            <element signature="e#1537#1538#0" expanded="true" />
+            <element signature="e#1591#1592#0" expanded="true" />
+            <element signature="e#3161#3168#0" expanded="true" />
+            <element signature="e#3683#3684#0" expanded="true" />
+            <element signature="e#3718#3719#0" expanded="true" />
+            <element signature="e#3751#3752#0" expanded="true" />
+            <element signature="e#3794#3795#0" expanded="true" />
+            <element signature="e#4197#4198#0" expanded="true" />
+            <element signature="e#4273#4274#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/logic/BoardTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="15" column="45" selection-start-line="15" selection-start-column="45" selection-end-line="15" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

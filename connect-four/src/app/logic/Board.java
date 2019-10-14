@@ -17,25 +17,33 @@ public class Board {
     //used for generating next possible constellations
     public String lastPlayerColor;
 
-    public Board (String[][] board, String lastPlayerColor, String nextPlayerColor){
+    public Board(String[][] board, String lastPlayerColor, String nextPlayerColor) {
         this.board = board;
+        this.lastPlayerColor = lastPlayerColor;
         this.nextPlayerColor = nextPlayerColor;
     }
 
-    public Board (String lastPlayerColor, String nextPlayerColor){
+    public Board(String lastPlayerColor, String nextPlayerColor) {
         this.board = new String[Controller.ROWS][Controller.COLUMNS];
+        this.lastPlayerColor = lastPlayerColor;
         this.nextPlayerColor = nextPlayerColor;
     }
 
-    public Board duplicate(){
-        return new Board(this.board.clone(), this.lastPlayerColor,  this.nextPlayerColor);
+    public Board duplicate() {
+        //https://stackoverflow.com/a/9106176
+        String[][] input = this.board;
+        String[][] result = new String[input.length][];
+        for (int r = 0; r < input.length; r++) {
+            result[r] = input[r].clone();
+        }
+        return new Board(result, this.lastPlayerColor, this.nextPlayerColor);
     }
 
-    public void setNextPlayerColor(String nextPlayerColor){
+    public void setNextPlayerColor(String nextPlayerColor) {
         this.nextPlayerColor = nextPlayerColor;
     }
 
-    public void setLastPlayerColor(String lastPlayerColor){
+    public void setLastPlayerColor(String lastPlayerColor) {
         this.lastPlayerColor = lastPlayerColor;
     }
 
@@ -48,7 +56,7 @@ public class Board {
         String color;
         try {
             color = this.board[row][column];
-            if(null == color){
+            if (null == color) {
                 color = NO_COLOR;
             }
         } catch (IndexOutOfBoundsException e) {
@@ -56,44 +64,50 @@ public class Board {
         }
         return color;
     }
-    //returns if the value could be inserted in the given line
-    public boolean insertInLine(int column, String value) {
+
+    //returns if the value could be inserted in the given column
+    public boolean insertInColumn(int column, String value) {
         boolean inserted = false;
-        int row = 0;
-        while(!inserted || row < columnLength()){
-            if(null == this.board[row][column]){
-                this.board[row][column] = value;
+        int row = rowLength() - 1;
+        while (!inserted && row > 0) {
+            if (null == this.board[row][column]) {
+                this.set(row, column, value);
                 inserted = true;
                 this.switchCurrentLastPlayer();
             }
+            row--;
         }
         return inserted;
     }
 
-    public void switchCurrentLastPlayer(){
+    public void switchCurrentLastPlayer() {
         String temp = this.lastPlayerColor;
         this.lastPlayerColor = this.nextPlayerColor;
         this.nextPlayerColor = temp;
+
     }
 
     //returns copy board with value inserted in given line
     //null if insert not possible
-    public Board insertToDuplicateInLine(int column, String value) {
+    public Board insertToDuplicateInColumn(int column, String value) {
         Board boardDuplicate = duplicate();
-        if(boardDuplicate.insertInLine(column,value)){
+        if (boardDuplicate.insertInColumn(column, value)) {
             return boardDuplicate;
-        }else {
+        } else {
             return null;
         }
     }
 
     //return all possible direct constellations after this board
-    public ArrayList<Board> generateNextConstelations(){
+    public ArrayList<Board> generateNextConstellations() {
+        Board rootBoard = duplicate();
         ArrayList<Board> constellations = new ArrayList<Board>();
-        for(int i=0; i<rowLength(); i++){
-            Board board = insertToDuplicateInLine(i, this.nextPlayerColor);
-            if(null != board){
-                constellations.add(board);
+        for (int i = 0; i < columnLength() - 1; i++) {
+            Board currentBoard = rootBoard.duplicate();
+            currentBoard = currentBoard.insertToDuplicateInColumn(i, this.nextPlayerColor);
+            if (null != currentBoard) {
+                //currentBoard.print();
+                constellations.add(currentBoard);
             }
         }
         return constellations;
@@ -110,7 +124,7 @@ public class Board {
     public void print() {
         for (int i = 0; i < rowLength(); i++) {
             System.out.print("[");
-            printRow( i);
+            printRow(i);
             System.out.println(" ]");
         }
         System.out.println();
@@ -121,6 +135,7 @@ public class Board {
             System.out.print(" " + this.board[row][j]);
         }
     }
+
     public void clear() {
         this.board = new String[Controller.ROWS][Controller.COLUMNS];
     }
