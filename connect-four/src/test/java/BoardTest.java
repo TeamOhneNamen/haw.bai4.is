@@ -1,5 +1,3 @@
-package app.logic;
-
 import org.junit.Test;
 
 import java.util.ArrayList;

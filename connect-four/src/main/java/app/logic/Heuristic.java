@@ -7,14 +7,20 @@ public class Heuristic {
 
     public static double determineScore(String playerColor){
         return determineHorizontalScore(Controller.board, playerColor);
+        return determineVerticalScore(Controller.board, playerColor);
         //TODO: vertikale Heuristik
         //TODO: Diagonale Heuristik
     }
 
     protected static double determineVerticalScore(Board board, String playerColor){
-        if(){
-
+        for (int i = 0; i < Controller.ROWS; i++) {
+            for (int j = 0; j < Controller.COLUMNS; j++) {
+                if(board.get(i, j).equals(playerColor) && board.get(i, j+1)==null){
+                    System.out.println(i + ":" + j);
+                }
+            }
         }
+        return 0;
     }
 
     protected static double determineHorizontalScore(Board board, String playerColor) {
