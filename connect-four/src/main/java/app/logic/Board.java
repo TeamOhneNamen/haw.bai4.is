@@ -121,19 +121,36 @@ public class Board {
         return this.board[0].length;
     }
 
-    public void print() {
-        for (int i = 0; i < rowLength(); i++) {
-            System.out.print("[");
-            printRow(i);
-            System.out.println(" ]");
+    public String rowToString(int row) {
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int j = 0; j < rowLength(); j++) {
+            stringBuffer.append(" "+ this.board[row][j]);
         }
-        System.out.println();
+        return stringBuffer.toString();
     }
 
-    public void printRow(int row) {
-        for (int j = 0; j < rowLength(); j++) {
-            System.out.print(" " + this.board[row][j]);
+    @Override
+    public String toString() {
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int i = 0; i < rowLength(); i++) {
+            stringBuffer.append("[");
+            stringBuffer.append(rowToString(i));
+            stringBuffer.append(" ]\n");
         }
+        return stringBuffer.toString();
+    }
+
+    public String toSimpleString() {
+        String str = toString();
+        str = str.replace(" ","");
+        str = str.replace("[","");
+        str = str.replace("]","");
+        str = str.replace(Controller.discColor1,"X");
+        str = str.replace(Controller.discColor2,"O");
+        //str = str.replace("\n","|");
+        str = str.replace("null",".");
+        //str = "|" + str;
+        return str;
     }
 
     public void clear() {

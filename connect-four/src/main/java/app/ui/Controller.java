@@ -34,8 +34,8 @@ public class Controller implements Initializable {
     public static final int COLUMNS = 7;
     public static final int ROWS = 6;
     private static final int CIRCLE_DIAMETER = 80;
-    private static final String discColor1 = "0x000000ff";
-    private static final String discColor2 = "0xffffffff";
+    public static final String discColor1 = "0x000000ff";
+    public static final String discColor2 = "0xffffffff";
     public static Board board = new Board(discColor2, discColor1);
 
     public static String PLAYER_ONE = "Player One";
@@ -218,7 +218,7 @@ public class Controller implements Initializable {
 
             insertedDiscArray[currentRow][column] = disc;
             board.set(currentRow, column, disc.getFill().toString());
-            board.print();
+            System.out.println(board.toString());
 
             displayScore();
         });

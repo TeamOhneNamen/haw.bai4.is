@@ -60,11 +60,22 @@ public class TreeNode<T> {
         return data != null ? data.toString() : "[data null]";
     }
 
-    //https://www.javagists.com/java-tree-data-structure
-    public static <T> void printTree(TreeNode<T> node, String appender) {
-        //TODO Print to .dot language
-        System.out.print(appender);
-        ((Board) node.data).print();
-        node.children.forEach(each ->  printTree(each, appender + appender));
+    public static <T> String treeToString(TreeNode<T> node) {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("digraph G {\n");
+        stringBuffer.append(branchToString(node));
+        stringBuffer.append("}");
+        return stringBuffer.toString();
+    }
+
+    public static <T> String branchToString(TreeNode<T> node) {
+        StringBuffer stringBuffer = new StringBuffer();
+        node.children.forEach(child -> {
+            stringBuffer.append("\""+((Board)node.data).toSimpleString()+"\" -> \""+((Board)child.data).toSimpleString()+"\";\n");
+        });
+        node.children.forEach(child -> {
+            stringBuffer.append(branchToString(child));
+        });
+        return stringBuffer.toString();
     }
 }

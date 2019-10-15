@@ -1,3 +1,5 @@
+import app.logic.Board;
+import app.logic.Heuristic;
 import org.junit.Test;
 
 import app.logic.Board;
@@ -16,7 +18,7 @@ public class HeuristicTest {
         board.set(0,0, black);
         board.set(0,1, black);
         board.set(0,2, black);
-        assertEquals(3.5,Heuristic.determineHorizontalScore(board, black), 0.0);
+        assertEquals(3.5, Heuristic.determineHorizontalScore(board, black), 0.0);
     }
 
     @Test

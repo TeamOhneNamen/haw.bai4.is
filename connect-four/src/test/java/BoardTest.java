@@ -1,3 +1,4 @@
+import app.logic.Board;
 import org.junit.Test;
 
 import java.util.ArrayList;

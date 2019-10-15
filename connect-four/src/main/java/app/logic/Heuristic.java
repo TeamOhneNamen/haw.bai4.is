@@ -15,7 +15,7 @@ public class Heuristic {
     public static double determineVerticalScore(Board board, String playerColor){
         double score = 0;
         System.out.println(playerColor);
-        board.print();
+        System.out.println(board);
         for (int i = 0; i < Controller.ROWS; i++) {
             for (int j = 0; j < Controller.COLUMNS; j++) {
 
