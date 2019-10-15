@@ -39,14 +39,6 @@ public class Board {
         return new Board(result, this.lastPlayerColor, this.nextPlayerColor);
     }
 
-    public void setNextPlayerColor(String nextPlayerColor) {
-        this.nextPlayerColor = nextPlayerColor;
-    }
-
-    public void setLastPlayerColor(String lastPlayerColor) {
-        this.lastPlayerColor = lastPlayerColor;
-    }
-
     public void set(int row, int column, String value) {
         this.board[row][column] = value;
         this.switchCurrentLastPlayer();
@@ -73,23 +65,21 @@ public class Board {
             if (null == this.board[row][column]) {
                 this.set(row, column, value);
                 inserted = true;
-                this.switchCurrentLastPlayer();
             }
             row--;
         }
         return inserted;
     }
 
-    public void switchCurrentLastPlayer() {
+    private void switchCurrentLastPlayer() {
         String temp = this.lastPlayerColor;
         this.lastPlayerColor = this.nextPlayerColor;
         this.nextPlayerColor = temp;
-
     }
 
     //returns copy board with value inserted in given line
     //null if insert not possible
-    public Board insertToDuplicateInColumn(int column, String value) {
+    private Board insertToDuplicateInColumn(int column, String value) {
         Board boardDuplicate = duplicate();
         if (boardDuplicate.insertInColumn(column, value)) {
             return boardDuplicate;
@@ -101,7 +91,7 @@ public class Board {
     //return all possible direct constellations after this board
     public ArrayList<Board> generateNextConstellations() {
         Board rootBoard = duplicate();
-        ArrayList<Board> constellations = new ArrayList<Board>();
+        ArrayList<Board> constellations = new ArrayList<>();
         for (int i = 0; i < columnLength() - 1; i++) {
             Board currentBoard = rootBoard.duplicate();
             currentBoard = currentBoard.insertToDuplicateInColumn(i, this.nextPlayerColor);
@@ -147,9 +137,7 @@ public class Board {
         str = str.replace("]","");
         str = str.replace(Controller.discColor1,"X");
         str = str.replace(Controller.discColor2,"O");
-        //str = str.replace("\n","|");
         str = str.replace("null",".");
-        //str = "|" + str;
         return str;
     }
 

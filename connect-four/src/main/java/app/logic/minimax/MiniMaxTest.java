@@ -23,15 +23,13 @@ public class MiniMaxTest {
     }
 
     public static void generateNextConstellationsSixPossibleTest(){
-        final String black = Controller.discColor1;
-        final String white = Controller.discColor2;
         final String fileName = "src/main/resources/graph/example.dot";
-        Board board = new Board(black,white);
-        board.set(5,0, black);
-        board.set(5,1, white);
+        Board board = new Board(Controller.discColor1,Controller.discColor2);
+        board.insertInColumn(5, Controller.discColor1);
+        board.insertInColumn(1, Controller.discColor2);
 
         TreeNode<Board> tree = MiniMax.contructTreeNode(board,2);
-        String treeString = TreeNode.treeToString(tree);
+        String treeString = TreeNode.treeToString(tree,false);
 
         Path path = Paths.get(fileName);
         byte[] strToBytes = treeString.getBytes();

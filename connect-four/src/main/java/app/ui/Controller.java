@@ -41,7 +41,7 @@ public class Controller implements Initializable {
     public static String PLAYER_ONE = "Player One";
     public static String PLAYER_Two = "Player Two";
 
-    private boolean isPlayerOne = true;
+    public static boolean isPlayerOne = true;
 
     private Disc[][] insertedDiscArray = new Disc[ROWS][COLUMNS];
 

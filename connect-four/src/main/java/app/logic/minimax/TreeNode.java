@@ -1,6 +1,7 @@
 package app.logic.minimax;
 
 import app.logic.Board;
+import app.ui.Controller;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -60,21 +61,27 @@ public class TreeNode<T> {
         return data != null ? data.toString() : "[data null]";
     }
 
-    public static <T> String treeToString(TreeNode<T> node) {
+    //colorfull determines if the node should be filled with a color for showing if
+    // the minimizer or the mximizer is next to play
+    public static <T> String treeToString(TreeNode<T> node, boolean colorful) {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("digraph G {\n");
-        stringBuffer.append(branchToString(node));
+        stringBuffer.append(branchToString(node,colorful));
         stringBuffer.append("}");
         return stringBuffer.toString();
     }
 
-    public static <T> String branchToString(TreeNode<T> node) {
+    public static <T> String branchToString(TreeNode<T> node, boolean colorful) {
         StringBuffer stringBuffer = new StringBuffer();
+        if(colorful){
+            String color = (((Board)node.data).nextPlayerColor.equals(Controller.discColor1)) ? "red" : "blue";
+            stringBuffer.append("\""+((Board)node.data).toSimpleString()+"\""+" [shape=circle, style=filled, fillcolor="+color+"]");
+        }
         node.children.forEach(child -> {
             stringBuffer.append("\""+((Board)node.data).toSimpleString()+"\" -> \""+((Board)child.data).toSimpleString()+"\";\n");
         });
         node.children.forEach(child -> {
-            stringBuffer.append(branchToString(child));
+            stringBuffer.append(branchToString(child,colorful));
         });
         return stringBuffer.toString();
     }
