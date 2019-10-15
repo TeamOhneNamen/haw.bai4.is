@@ -3,7 +3,6 @@ package app.logic.minimax;
 import app.logic.Board;
 import app.ui.Controller;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -73,12 +72,21 @@ public class TreeNode<T> {
 
     public static <T> String branchToString(TreeNode<T> node, boolean colorful) {
         StringBuffer stringBuffer = new StringBuffer();
+        String stringOfNode;
+        String color = "yellow";
+        stringOfNode = ((Board)node.data).toSimpleStringWithScore();
         if(colorful){
-            String color = (((Board)node.data).nextPlayerColor.equals(Controller.discColor1)) ? "red" : "blue";
-            stringBuffer.append("\""+((Board)node.data).toSimpleStringWithScore()+"\""+" [color="+color+"]");
+            if(((Board)node.data).nextPlayerColor.equals(Board.MAXIMIZER)){
+                color = "red";
+            }else if(((Board)node.data).isPruned()){
+                color = "green";
+            }else {
+                color = "blue";
+            }
+            stringBuffer.append("\""+stringOfNode+"\""+" [color="+color+"]");
         }
         node.children.forEach(child -> {
-            stringBuffer.append("\""+((Board)node.data).toSimpleStringWithScore()+"\" -> \""+((Board)child.data).toSimpleStringWithScore()+"\";\n");
+            stringBuffer.append("\""+stringOfNode+"\" -> \""+((Board)child.data).toSimpleStringWithScore()+"\";\n");
         });
         node.children.forEach(child -> {
             stringBuffer.append(branchToString(child,colorful));

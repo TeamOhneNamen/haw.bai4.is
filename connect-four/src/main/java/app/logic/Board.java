@@ -17,6 +17,7 @@ public class Board {
     public static final double LOWEST_NUMBER = -1000.0;
     public static final double HIGHEST_NUMBER = 1000.0;
     public static final String MAXIMIZER = Controller.discColor2;
+    private boolean pruned = false;
     public Pair<Double,Double> borders = new Pair<>(LOWEST_NUMBER, LOWEST_NUMBER);
     //the disc color of the player who is on it
     //used for generating next possible constellations
@@ -139,6 +140,9 @@ public class Board {
         return stringBuffer.toString();
     }
 
+    //prunes boards from minimax tree
+    public void prune(){this.pruned=true;}
+
     public String toSimpleString() {
         String str = toString();
         str = str.replace(" ","");
@@ -164,4 +168,7 @@ public class Board {
         this.board = new String[Controller.ROWS][Controller.COLUMNS];
     }
 
+    public boolean isPruned() {
+        return this.pruned;
+    }
 }

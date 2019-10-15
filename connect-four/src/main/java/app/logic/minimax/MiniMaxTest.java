@@ -24,29 +24,21 @@ public class MiniMaxTest {
     }
 
     public static void miniMaxTest(){
-        final String fileName = "src/main/resources/graph/example.dot";
+        final String fileName = "src/main/resources/graph/miniMaxTest.";
         Board board = new Board(Controller.discColor2,Controller.discColor1);
         board.insertInColumn(5, Controller.discColor1);
         board.insertInColumn(1, Controller.discColor2);
         board.insertInColumn(5, Controller.discColor1);
 
-        TreeNode<Board> tree = contructTree(board,3);
-        MiniMax.miniMax(tree);
+        TreeNode<Board> tree = contructTree(board,2);
+        MiniMax.miniMax(tree,true);
 
 
         String treeString = TreeNode.treeToString(tree,true);
 
-        Path path = Paths.get(fileName);
-//        byte[] strToBytes = treeString.getBytes();
-//
-//        try {
-//            Files.write(path, strToBytes);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         try {
             MutableGraph g = Parser.read(treeString);
-            Graphviz.fromGraph(g).render(Format.PNG).toFile(new File("src/main/resources/graph/example.png"));
+            Graphviz.fromGraph(g).render(Format.PNG).toFile(new File(fileName+"png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
