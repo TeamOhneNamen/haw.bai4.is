@@ -1,21 +1,30 @@
 package app.logic;
 
+import app.logic.minimax.TreeNode;
 import app.ui.Controller;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
+import java.util.List;
 
 // a more simple form of the disc matrix in Controller
 // stores just the color of the disc
 // for using it in the heuristic
 public class Board {
     private String[][] board;
-    public final String NO_COLOR = "NONE";
+    public static final String NO_COLOR = "NONE";
+    public static final double NO_SCORE = 0.0;
+    public static final double LOWEST_NUMBER = -1000.0;
+    public static final double HIGHEST_NUMBER = 1000.0;
+    public static final String MAXIMIZER = Controller.discColor2;
+    public Pair<Double,Double> borders = new Pair<>(LOWEST_NUMBER, LOWEST_NUMBER);
     //the disc color of the player who is on it
     //used for generating next possible constellations
     public String nextPlayerColor;
     //the disc color of the player who made the last move
     //used for generating next possible constellations
     public String lastPlayerColor;
+    public double score;
 
     public Board(String[][] board, String lastPlayerColor, String nextPlayerColor) {
         this.board = board;
@@ -135,10 +144,20 @@ public class Board {
         str = str.replace(" ","");
         str = str.replace("[","");
         str = str.replace("]","");
-        str = str.replace(Controller.discColor1,"X");
-        str = str.replace(Controller.discColor2,"O");
+        str = str.replace(Controller.discColor1,"O");
+        str = str.replace(Controller.discColor2,"X");
         str = str.replace("null",".");
         return str;
+    }
+
+    public String toSimpleStringWithScore() {
+        String str = toSimpleString();
+        str = str + String.valueOf(this.score);
+        return str;
+    }
+
+    public void setBorder(double leftBorder, double rightBorder){
+        this.borders = new Pair<>(leftBorder, rightBorder);
     }
 
     public void clear() {

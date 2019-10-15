@@ -75,10 +75,10 @@ public class TreeNode<T> {
         StringBuffer stringBuffer = new StringBuffer();
         if(colorful){
             String color = (((Board)node.data).nextPlayerColor.equals(Controller.discColor1)) ? "red" : "blue";
-            stringBuffer.append("\""+((Board)node.data).toSimpleString()+"\""+" [shape=circle, style=filled, fillcolor="+color+"]");
+            stringBuffer.append("\""+((Board)node.data).toSimpleStringWithScore()+"\""+" [color="+color+"]");
         }
         node.children.forEach(child -> {
-            stringBuffer.append("\""+((Board)node.data).toSimpleString()+"\" -> \""+((Board)child.data).toSimpleString()+"\";\n");
+            stringBuffer.append("\""+((Board)node.data).toSimpleStringWithScore()+"\" -> \""+((Board)child.data).toSimpleStringWithScore()+"\";\n");
         });
         node.children.forEach(child -> {
             stringBuffer.append(branchToString(child,colorful));

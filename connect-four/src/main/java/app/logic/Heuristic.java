@@ -2,6 +2,8 @@ package app.logic;
 
 import app.ui.Controller;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 //Based on this idea: https://cs.stackexchange.com/a/13455
 public class Heuristic {
 
@@ -10,6 +12,12 @@ public class Heuristic {
         return determineVerticalScore(Controller.board, playerColor);
         //TODO: vertikale Heuristik
         //TODO: Diagonale Heuristik
+    }
+
+    public static double determineScore(Board board, String playerColor){
+        //TODO: add functionality
+        double score = ThreadLocalRandom.current().nextInt(1,7);
+        return score;
     }
 
     public static double determineVerticalScore(Board board, String playerColor){
