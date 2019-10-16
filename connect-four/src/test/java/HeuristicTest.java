@@ -31,6 +31,19 @@ public class HeuristicTest {
     }
 
     @Test
+    public void horizontalScoreSingleDisk(){
+        Board board = new Board(black,white);
+        board.set(2,2, black);
+        assertEquals(2,Heuristic.determineHorizontalScore(board, black), 0.0);
+    }
+
+    @Test
+    public void horizontalScoreNoDisk(){
+        Board board = new Board(black,white);
+        assertEquals(0,Heuristic.determineHorizontalScore(board, black), 0.0);
+    }
+
+    @Test
     public void horizontalScoreNoChanceToConnectFour(){
         Board board = new Board(black,white);
         board.set(0,1, black);

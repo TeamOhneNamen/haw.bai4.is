@@ -7,24 +7,11 @@ import java.util.concurrent.ThreadLocalRandom;
 //Based on this idea: https://cs.stackexchange.com/a/13455
 public class Heuristic {
 
-    final static int AMOUNT_OF_NEIGHBORS_TO_CHECK = 3;
-
-    public static double determineScore(Board board, String playerColor) {
-        //TODO: add functionality
-        double score = ThreadLocalRandom.current().nextInt(1, 7);
-        return score;
-    }
-
-    public static double determineScore(String playerColor) {
-        //TODO: add functionality
-        double score = ThreadLocalRandom.current().nextInt(1, 7);
-        return score;
-    }
+    final static int AMOUNT_OF_NEIGHBORS_TO_CHECK = 4;
 
     public static double determineScore(Board board) {
-        String wayToMove = "HORIZONTAL";
-        determineHorizontalScore(board, board.nextPlayerColor);
-        return 0.0;
+        String[] wayToMove = {"HORIZONTAL","VERTICAL", "DIAGONAL"};
+        return determineHorizontalScore(board, board.nextPlayerColor);
     }
 
     public static double determineHorizontalScore(Board board, String playerColor) {
@@ -75,7 +62,7 @@ public class Heuristic {
         for (int i = 0; i < AMOUNT_OF_NEIGHBORS_TO_CHECK; i++) {
             if (Board.NO_COLOR.equals(leftNeighbor.data)) {
                 emptyLeftNeighbors++;
-                leftNeighbor = board.getLeftNeighbor(row, column, wayToMove);
+                leftNeighbor = board.getLeftNeighbor(leftNeighbor,wayToMove);
             } else {
                 break;
             }
@@ -84,14 +71,14 @@ public class Heuristic {
     }
 
     private static double evaluate(int emptyLeftNeighbors, int emptyRightNeighbors, int inARow) {
-        System.out.println("Left: " + emptyLeftNeighbors + " Right: " + emptyRightNeighbors + " In A Row: " + inARow);
+        //System.out.println("Left: " + emptyLeftNeighbors + " Right: " + emptyRightNeighbors + " In A Row: " + inARow);
         double score = 0.0;
-        if (emptyLeftNeighbors + emptyRightNeighbors + inARow > 3) {
+        if (emptyLeftNeighbors + emptyRightNeighbors + inARow >= 4) {
             score = inARow;
-            if (emptyLeftNeighbors > 0) {
+            if (emptyLeftNeighbors >= 1) {
                 score += 0.5;
             }
-            if (emptyRightNeighbors > 0) {
+            if (emptyRightNeighbors >= 1) {
                 score += 0.5;
             }
         }

@@ -228,8 +228,7 @@ public class Controller implements Initializable {
     }
 
     private void displayScore() {
-        this.score1.setText(String.valueOf(Heuristic.determineScore(discColor1)));
-        this.score2.setText(String.valueOf(Heuristic.determineScore(discColor2)));
+        this.score1.setText(String.valueOf(Heuristic.determineScore(board)));
     }
 
 
