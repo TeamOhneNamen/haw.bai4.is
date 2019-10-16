@@ -7,128 +7,91 @@ import java.util.concurrent.ThreadLocalRandom;
 //Based on this idea: https://cs.stackexchange.com/a/13455
 public class Heuristic {
 
-    public static double determineScore(String playerColor){
-        determineHorizontalScore(Controller.board, playerColor);
-        return determineVerticalScore(Controller.board, playerColor);
-        //TODO: vertikale Heuristik
-        //TODO: Diagonale Heuristik
-    }
+    final static int AMOUNT_OF_NEIGHBORS_TO_CHECK = 3;
 
-    public static double determineScore(Board board, String playerColor){
+    public static double determineScore(Board board, String playerColor) {
         //TODO: add functionality
-        double score = ThreadLocalRandom.current().nextInt(1,7);
+        double score = ThreadLocalRandom.current().nextInt(1, 7);
         return score;
     }
 
-    public static double determineVerticalScore(Board board, String playerColor){
-        double score = 0;
-        System.out.println(playerColor);
-        System.out.println(board);
-        for (int i = 0; i < Controller.ROWS; i++) {
-            for (int j = 0; j < Controller.COLUMNS; j++) {
+    public static double determineScore(String playerColor) {
+        //TODO: add functionality
+        double score = ThreadLocalRandom.current().nextInt(1, 7);
+        return score;
+    }
 
-                if(board.get(i, j).equals(board.NO_COLOR) || board.get(i, j).equals(playerColor)){
-                    if(board.get(i, j-1)!=null){
-                        if(board.get(i, j-1).equals(board.NO_COLOR) || board.get(i, j-1).equals(playerColor)){
-                            if(board.get(i, j-2)!=null){
-                                if(board.get(i, j-2).equals(board.NO_COLOR) || board.get(i, j-2).equals(playerColor)){
-                                    if(board.get(i, j-3)!=null){
-                                        if(board.get(i, j-3).equals(board.NO_COLOR) || board.get(i, j-3).equals(playerColor)){
-                                            System.out.println(i + ":" + j);
-                                            score++;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                }
-            }
-        }
-        return 0;
+    public static double determineScore(Board board) {
+        String wayToMove = "HORIZONTAL";
+        determineHorizontalScore(board, board.nextPlayerColor);
+        return 0.0;
     }
 
     public static double determineHorizontalScore(Board board, String playerColor) {
         int emptyLeftNeighbors = 0;
         int emptyRightNeighbors = 0;
         int inARow = 0;
+        String wayToMove = "HORIZONTAL";
         for (int i = 0; i < board.rowLength(); i++) {
             int j = 0;
             int column;
             while (j < board.columnLength()) {
                 column = j;
-                j += 1;
                 // 1 in a row
                 if (playerColor.equals(board.get(i, column))) {
                     inARow++;
                     // space to the left
-                    if(board.NO_COLOR.equals(board.get(i, column - 1))){
-                        emptyLeftNeighbors++;
-                        if(board.NO_COLOR.equals(board.get(i, column - 2))){
-                            emptyLeftNeighbors++;
-                            if(board.NO_COLOR.equals(board.get(i, column - 3))){
-                                emptyLeftNeighbors++;
-                            }
-                        }
-                    }
-                    j += 2;
-                    // 2 in a row
-                    if (playerColor.equals(board.get(i, column + 1))) {
-                        inARow++;
-                        j += 3;
-                        // 3 in a row
-                        if (playerColor.equals(board.get(i, column + 2))) {
+                    emptyLeftNeighbors = checkLeftNeighbors(board, i, column, wayToMove);
+                    j++;
+                    BoardElement rightNeighbor = board.getRightNeighbor(i, column, wayToMove);
+
+                    for (int h = 0; h < (AMOUNT_OF_NEIGHBORS_TO_CHECK+2); h++) {
+
+                        if (playerColor.equals(rightNeighbor.data)) {
                             inARow++;
-                            // 3 in a row with space to the right
-                            if (board.NO_COLOR.equals(board.get(i, column + 3))) {
-                                emptyRightNeighbors++;
-                            }
-                            System.out.println("3 in a row with space to the right");
-                            j += 4;
-                            // 2 in a row with 1 space to the right
-                        } else if (board.NO_COLOR.equals(board.get(i, column+3))) {
+                            j++;
+                            rightNeighbor = board.getRightNeighbor(rightNeighbor, wayToMove);
+                        } else if (board.NO_COLOR.equals(rightNeighbor.data)) {
                             emptyRightNeighbors++;
-                            j += 4;
-                            // 2 in a row with 2 space to the right
-                            if (board.NO_COLOR.equals(board.get(i, column + 4))) {
-                                emptyRightNeighbors++;
-                                j += 5;
-                            }
+                            j++;
+                            rightNeighbor = board.getRightNeighbor(rightNeighbor, wayToMove);
+                            //field reserved by the enemy
+                        }else {
+                            j++;
+                            break;
                         }
-                        // 1 in a row with 1 space to the right
-                    } else if (board.NO_COLOR.equals(board.get(i, column+2))) {
-                        emptyRightNeighbors++;
-                        j += 3;
-                        // 1 in a row with 2 space to the right
-                        if (board.NO_COLOR.equals(board.get(i, column + 3))) {
-                            emptyRightNeighbors++;
-                            j += 4;
-                            // 1 in a row with 2 space to the right
-                            if (board.NO_COLOR.equals(board.get(i, column + 4))) {
-                                emptyRightNeighbors++;
-                                j += 5;
-
-                            }
-                        }
-
                     }
+                }else {
+                    j++;
                 }
-
             }
         }
         return evaluate(emptyLeftNeighbors, emptyRightNeighbors, inARow);
     }
 
-    public static double evaluate(int emptyLeftNeighbors, int emptyRightNeighbors, int inARow) {
-        System.out.println("Left: "+ emptyLeftNeighbors + " Right: "+ emptyRightNeighbors + " In A Row: " + inARow);
+    private static int checkLeftNeighbors(Board board, int row, int column, String wayToMove) {
+        int emptyLeftNeighbors = 0;
+        BoardElement leftNeighbor = board.getLeftNeighbor(row, column, wayToMove);
+        for (int i = 0; i < AMOUNT_OF_NEIGHBORS_TO_CHECK; i++) {
+            if (Board.NO_COLOR.equals(leftNeighbor.data)) {
+                emptyLeftNeighbors++;
+                leftNeighbor = board.getLeftNeighbor(row, column, wayToMove);
+            } else {
+                break;
+            }
+        }
+        return emptyLeftNeighbors;
+    }
+
+    private static double evaluate(int emptyLeftNeighbors, int emptyRightNeighbors, int inARow) {
+        System.out.println("Left: " + emptyLeftNeighbors + " Right: " + emptyRightNeighbors + " In A Row: " + inARow);
         double score = 0.0;
-        if(emptyLeftNeighbors+emptyRightNeighbors+inARow >3 ){
+        if (emptyLeftNeighbors + emptyRightNeighbors + inARow > 3) {
             score = inARow;
-            if(emptyRightNeighbors > 0){
+            if (emptyLeftNeighbors > 0) {
                 score += 0.5;
             }
-            if(emptyRightNeighbors > 0){
+            if (emptyRightNeighbors > 0) {
                 score += 0.5;
             }
         }

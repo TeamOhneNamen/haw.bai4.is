@@ -56,6 +56,11 @@ public class Board {
 
     public String get(int row, int column) {
         String color;
+
+        if(row < 0 || column < 0 ){
+            System.out.println("Too far left");
+            return null;
+        }
         try {
             color = this.board[row][column];
             if (null == color) {
@@ -170,5 +175,26 @@ public class Board {
 
     public boolean isPruned() {
         return this.pruned;
+    }
+
+    public BoardElement getLeftNeighbor(int row, int column, String wayToMove) {
+        if("HORIZONTAL".equals(wayToMove)){
+            return new BoardElement(row, column-1, this.get(row, column-1));
+        }
+        return null;
+    }
+
+    public BoardElement getRightNeighbor(int row, int column, String wayToMove) {
+        if("HORIZONTAL".equals(wayToMove)){
+            return new BoardElement(row, column+1, this.get(row, column+1));
+        }
+        return null;
+    }
+
+    public BoardElement getRightNeighbor(BoardElement boardElement, String wayToMove) {
+        if("HORIZONTAL".equals(wayToMove)){
+            return new BoardElement(boardElement.row, boardElement.column+1, this.get(boardElement.row, boardElement.column+1));
+        }
+        return null;
     }
 }

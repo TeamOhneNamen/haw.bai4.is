@@ -38,13 +38,4 @@ public class HeuristicTest {
         board.set(0,3, white);
         assertEquals(0,Heuristic.determineHorizontalScore(board, black), 0.0);
     }
-
-    @Test
-    public void verticalScoreNoChanceToConnectFour(){
-        Board board = new Board(black,white);
-        board.set(5,1, black);
-        board.set(5,2, black);
-        board.set(5,3, white);
-        assertEquals(0,Heuristic.determineVerticalScore(board, black), 0.0);
-    }
 }
