@@ -1,5 +1,6 @@
 package app.logic;
 
+import app.logic.minimax.Direction;
 import app.logic.minimax.TreeNode;
 import app.ui.Controller;
 import javafx.util.Pair;
@@ -180,7 +181,7 @@ public class Board {
         return this.pruned;
     }
 
-    public BoardElement getLeftNeighbor(int row, int column, Heuristic.Direction direction) {
+    public BoardElement getLeftNeighbor(int row, int column, Direction direction) {
         switch(direction){
             case HORIZONTAL:
                 return new BoardElement(row, column-1, this.get(row, column-1));
@@ -192,11 +193,11 @@ public class Board {
         return null;
     }
 
-    public BoardElement getLeftNeighbor(BoardElement boardElement, Heuristic.Direction directio) {
+    public BoardElement getLeftNeighbor(BoardElement boardElement, Direction directio) {
         return this.getLeftNeighbor(boardElement.row,boardElement.column,directio);
     }
 
-    public BoardElement getRightNeighbor(int row, int column, Heuristic.Direction direction) {
+    public BoardElement getRightNeighbor(int row, int column, Direction direction) {
         switch(direction){
             case HORIZONTAL:
                 return new BoardElement(row, column+1, this.get(row, column+1));
@@ -208,7 +209,7 @@ public class Board {
         return null;
     }
 
-    public BoardElement getRightNeighbor(BoardElement boardElement, Heuristic.Direction direction) {
+    public BoardElement getRightNeighbor(BoardElement boardElement, Direction direction) {
         return this.getRightNeighbor(boardElement.row,boardElement.column,direction);
     }
 }

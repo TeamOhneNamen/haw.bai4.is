@@ -7,9 +7,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 
-import app.logic.Board;
-import app.logic.Heuristic;
-
 public class BoardTest {
     final String black = "BLACK";
     final String white = "WHITE";

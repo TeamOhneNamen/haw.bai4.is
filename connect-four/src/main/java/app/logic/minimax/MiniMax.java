@@ -1,7 +1,8 @@
 package app.logic.minimax;
 
 import app.logic.Board;
-import app.logic.Heuristic;
+import app.logic.Heuristics.Heuristic;
+import app.ui.Controller;
 
 import java.util.ArrayList;
 
@@ -36,7 +37,7 @@ public class MiniMax {
         if(depth == 0){
             return new TreeNode<Board>(board);
         }
-        TreeNode<Board> tree = new TreeNode<Board>(board);
+        TreeNode<Board> tree = new TreeNode<>(board);
         ArrayList<Board> nextConstellations = board.generateNextConstellations();
         nextConstellations.forEach(constellation ->
                 tree.addChildNode(contructTree(constellation, depth-1)));
@@ -57,7 +58,7 @@ public class MiniMax {
     private static double miniMax(TreeNode<Board> tree){
         if(tree.isLeaf()){
             Board board = tree.data;
-            board.score = Heuristic.determineScore(board);
+            board.score = Controller.heuristic.determineScore(board);
             return board.score;
         }
         //maximizer is next to move
@@ -93,7 +94,7 @@ public class MiniMax {
     private static double miniMax(TreeNode<Board> tree, double alpha, double beta){
         if(tree.isLeaf()){
             Board board = tree.data;
-            board.score = Heuristic.determineScore(board);
+            board.score = Controller.heuristic.determineScore(board);
             return board.score;
         }
         //maximizer is next to move

@@ -1,19 +1,18 @@
-package app.logic;
+package app.logic.Heuristics;
 
+import app.logic.Board;
+import app.logic.BoardElement;
+import app.logic.minimax.Direction;
 import app.ui.Controller;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 //Based on this idea: https://cs.stackexchange.com/a/13455
-public class Heuristic {
+public class Heuristic implements IHeuristic{
 
     final static int AMOUNT_OF_NEIGHBORS_TO_CHECK = 4;
 
-    public enum Direction {
-        HORIZONTAL, VERTICAL, DIAGONAL;
-    }
-
-    public static double determineScore(Board board) {
+    public double determineScore(Board board) {
         String playerColor = board.nextPlayerColor;
         int emptyLeftNeighbors = 0;
         int emptyRightNeighbors = 0;
@@ -55,7 +54,7 @@ public class Heuristic {
                             if (playerColor.equals(board.get(row, column))) {
                                 inARow++;
                                 // space to the left
-                                emptyLeftNeighbors = checkLeftNeighbors(board, row, column, direction);
+                                emptyLeftNeighbors = checkNeighbors(board, row, column, direction);
                                 j++;
                                 BoardElement rightNeighbor = board.getRightNeighbor(row, column, direction);
 
@@ -84,7 +83,7 @@ public class Heuristic {
         return evaluate(emptyLeftNeighbors, emptyRightNeighbors, inARow);
     }
 
-    private static double evaluate(int emptyLeftNeighbors, int emptyRightNeighbors, int inARow) {
+    double evaluate(int emptyLeftNeighbors, int emptyRightNeighbors, int inARow) {
         //System.out.println("Left: " + emptyLeftNeighbors + " Right: " + emptyRightNeighbors + " In A Row: " + inARow);
         double score = 0.0;
         if (emptyLeftNeighbors + emptyRightNeighbors + inARow >= 4) {
@@ -99,7 +98,7 @@ public class Heuristic {
         return score;
     }
 
-    private static int checkLeftNeighbors(Board board, int row, int column, Direction direction) {
+    private int checkNeighbors(Board board, int row, int column, Direction direction) {
         int emptyLeftNeighbors = 0;
         BoardElement leftNeighbor = board.getLeftNeighbor(row, column, direction);
         for (int i = 0; i < AMOUNT_OF_NEIGHBORS_TO_CHECK; i++) {
