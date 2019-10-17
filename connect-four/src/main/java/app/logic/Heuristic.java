@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Heuristic {
 
     final static int AMOUNT_OF_NEIGHBORS_TO_CHECK = 4;
-    
+
     public enum Direction {
         HORIZONTAL, VERTICAL, DIAGONAL;
     }
@@ -38,7 +38,6 @@ public class Heuristic {
             for (int i = 0; i < outerCountBorder; i++) {
                 int j = 0;
                 while (j < innerCountBorder) {
-
                     int column = 0;
                     int row = 0;
                     switch (direction) {
@@ -51,8 +50,7 @@ public class Heuristic {
                             column = i;
                             row = j;
                             break;
-                        default:
-                            System.err.println("Keine gueltige Richtung!");
+                    }
                             // 1 in a row
                             if (playerColor.equals(board.get(row, column))) {
                                 inARow++;
@@ -83,7 +81,6 @@ public class Heuristic {
                     }
                 }
             }
-        }
         return evaluate(emptyLeftNeighbors, emptyRightNeighbors, inARow);
     }
 

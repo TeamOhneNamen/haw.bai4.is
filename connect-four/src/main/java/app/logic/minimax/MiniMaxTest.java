@@ -30,7 +30,7 @@ public class MiniMaxTest {
         board.insertInColumn(1, Controller.discColor2);
         board.insertInColumn(5, Controller.discColor1);
 
-        TreeNode<Board> tree = contructTree(board,3);
+        TreeNode<Board> tree = contructTree(board,2);
         MiniMax.miniMax(tree,true);
 
 
