@@ -27,6 +27,8 @@ public class Board {
     public String lastPlayerColor;
     public double score;
 
+    private BoardElement lastMove;
+
     public Board(String[][] board, String lastPlayerColor, String nextPlayerColor) {
         this.board = board;
         this.lastPlayerColor = lastPlayerColor;
@@ -45,13 +47,18 @@ public class Board {
         String[][] result = new String[input.length][];
         for (int r = 0; r < input.length; r++) {
             result[r] = input[r].clone();
-        }
+        };
         return new Board(result, this.lastPlayerColor, this.nextPlayerColor);
     }
 
     public void set(int row, int column, String value) {
         this.board[row][column] = value;
         this.switchCurrentLastPlayer();
+        this.lastMove = new BoardElement(row,column,value);
+    }
+
+    public BoardElement getLastMove(){
+        return this.lastMove;
     }
 
     public String get(int row, int column) {

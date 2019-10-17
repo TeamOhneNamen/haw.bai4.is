@@ -2,6 +2,7 @@ package app.ui;
 
 import app.logic.Board;
 import app.logic.Heuristic;
+import app.logic.minimax.MiniMax;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -31,6 +32,9 @@ import java.util.stream.IntStream;
 public class Controller implements Initializable {
 
 
+    public static final boolean PRUNE = true;
+    public static final boolean PRINT_MINIMAX_TREE = true;
+    public static final int MINIMAX_DEPTH = 3;
     public static final int COLUMNS = 7;
     public static final int ROWS = 6;
     private static final int CIRCLE_DIAMETER = 80;
@@ -224,7 +228,17 @@ public class Controller implements Initializable {
         });
 
         translateTransition.play();
+        if(!isPlayerOne){
+            System.out.println("Make AI Move");
+            makeAIMove();
+        }
+    }
 
+    private void makeAIMove(){
+        Disc disc = new Disc(!isPlayerOne);
+        int column = MiniMax.determineBestMove(board,Controller.MINIMAX_DEPTH,Controller.PRUNE,Controller.PRINT_MINIMAX_TREE);
+        System.out.println("Make AI Move in col: "+column);
+        //this.insertDisc(disc, column);
     }
 
     private void displayScore() {

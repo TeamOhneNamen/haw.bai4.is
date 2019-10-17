@@ -6,10 +6,33 @@ import app.logic.Heuristic;
 import java.util.ArrayList;
 
 public class MiniMax {
+
+    //return the column of the best move
+    public static int determineBestMove(Board board, int depth, boolean pruned, boolean printTree){
+        TreeNode<Board> tree = MiniMax.contructTree(board, depth);
+        MiniMax.miniMax(tree, pruned);
+        Board bestMove = findBestMove(tree);
+        return bestMove.getLastMove().column;
+    }
+
+    private static Board findBestMove(TreeNode<Board> tree){
+        Board bestMove = null;
+        for(int i = 0; i < tree.children.size();i++){
+            Board currentMove = tree.children.get(i).data;
+            if(null == bestMove){
+                bestMove = currentMove;
+            }else if(bestMove.score < currentMove.score){
+                bestMove = currentMove;
+            }
+        }
+        return bestMove;
+    }
+
+
     //contructs a MiniMax Tree with board as the root node
     //with a specific depth
     //leaves score blank
-    public static TreeNode<Board> contructTree(Board board, int depth){
+    protected static TreeNode<Board> contructTree(Board board, int depth){
         if(depth == 0){
             return new TreeNode<Board>(board);
         }
@@ -20,7 +43,9 @@ public class MiniMax {
         return tree;
     }
 
-    public static void miniMax(TreeNode<Board> tree, boolean pruned){
+
+
+    protected static void miniMax(TreeNode<Board> tree, boolean pruned){
         if (pruned) {
             miniMax(tree, Board.LOWEST_NUMBER, Board.HIGHEST_NUMBER);
         } else {
