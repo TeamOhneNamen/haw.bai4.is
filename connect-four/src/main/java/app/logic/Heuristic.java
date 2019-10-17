@@ -8,66 +8,83 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Heuristic {
 
     final static int AMOUNT_OF_NEIGHBORS_TO_CHECK = 4;
-
-    public static double determineScore(Board board) {
-        String[] wayToMove = {"HORIZONTAL","VERTICAL", "DIAGONAL"};
-        return determineHorizontalScore(board, board.nextPlayerColor);
+    
+    public enum Direction {
+        HORIZONTAL, VERTICAL, DIAGONAL;
     }
 
-    public static double determineHorizontalScore(Board board, String playerColor) {
+    public static double determineScore(Board board) {
+        String playerColor = board.nextPlayerColor;
         int emptyLeftNeighbors = 0;
         int emptyRightNeighbors = 0;
         int inARow = 0;
-        String wayToMove = "HORIZONTAL";
-        for (int i = 0; i < board.rowLength(); i++) {
-            int j = 0;
-            int column;
-            while (j < board.columnLength()) {
-                column = j;
-                // 1 in a row
-                if (playerColor.equals(board.get(i, column))) {
-                    inARow++;
-                    // space to the left
-                    emptyLeftNeighbors = checkLeftNeighbors(board, i, column, wayToMove);
-                    j++;
-                    BoardElement rightNeighbor = board.getRightNeighbor(i, column, wayToMove);
+        int outerCountBorder = 0;
+        int innerCountBorder = 0;
+        Direction[] directions = Direction.values();
+        for (Direction direction : directions) {
+            switch (direction) {
+                case HORIZONTAL:
+                case DIAGONAL:
+                    outerCountBorder = board.rowLength();
+                    innerCountBorder = board.columnLength();
+                    break;
+                case VERTICAL:
+                    outerCountBorder = board.columnLength();
+                    innerCountBorder = board.rowLength();
+                    break;
+                default:
+                    System.err.println("Keine gueltige Richtung!");
+            }
+            for (int i = 0; i < outerCountBorder; i++) {
+                int j = 0;
+                while (j < innerCountBorder) {
 
-                    for (int h = 0; h < (AMOUNT_OF_NEIGHBORS_TO_CHECK+2); h++) {
-
-                        if (playerColor.equals(rightNeighbor.data)) {
-                            inARow++;
-                            j++;
-                            rightNeighbor = board.getRightNeighbor(rightNeighbor, wayToMove);
-                        } else if (board.NO_COLOR.equals(rightNeighbor.data)) {
-                            emptyRightNeighbors++;
-                            j++;
-                            rightNeighbor = board.getRightNeighbor(rightNeighbor, wayToMove);
-                            //field reserved by the enemy
-                        }else {
-                            j++;
+                    int column = 0;
+                    int row = 0;
+                    switch (direction) {
+                        case HORIZONTAL:
+                        case DIAGONAL:
+                            column = j;
+                            row = i;
                             break;
-                        }
+                        case VERTICAL:
+                            column = i;
+                            row = j;
+                            break;
+                        default:
+                            System.err.println("Keine gueltige Richtung!");
+                            // 1 in a row
+                            if (playerColor.equals(board.get(row, column))) {
+                                inARow++;
+                                // space to the left
+                                emptyLeftNeighbors = checkLeftNeighbors(board, row, column, direction);
+                                j++;
+                                BoardElement rightNeighbor = board.getRightNeighbor(row, column, direction);
+
+                                for (int h = 0; h < (AMOUNT_OF_NEIGHBORS_TO_CHECK + 2); h++) {
+
+                                    if (playerColor.equals(rightNeighbor.data)) {
+                                        inARow++;
+                                        j++;
+                                        rightNeighbor = board.getRightNeighbor(rightNeighbor, direction);
+                                    } else if (board.NO_COLOR.equals(rightNeighbor.data)) {
+                                        emptyRightNeighbors++;
+                                        j++;
+                                        rightNeighbor = board.getRightNeighbor(rightNeighbor, direction);
+                                        //field reserved by the enemy
+                                    } else {
+                                        j++;
+                                        break;
+                                    }
+                                }
+                            } else {
+                                j++;
+                            }
                     }
-                }else {
-                    j++;
                 }
             }
         }
         return evaluate(emptyLeftNeighbors, emptyRightNeighbors, inARow);
-    }
-
-    private static int checkLeftNeighbors(Board board, int row, int column, String wayToMove) {
-        int emptyLeftNeighbors = 0;
-        BoardElement leftNeighbor = board.getLeftNeighbor(row, column, wayToMove);
-        for (int i = 0; i < AMOUNT_OF_NEIGHBORS_TO_CHECK; i++) {
-            if (Board.NO_COLOR.equals(leftNeighbor.data)) {
-                emptyLeftNeighbors++;
-                leftNeighbor = board.getLeftNeighbor(leftNeighbor,wayToMove);
-            } else {
-                break;
-            }
-        }
-        return emptyLeftNeighbors;
     }
 
     private static double evaluate(int emptyLeftNeighbors, int emptyRightNeighbors, int inARow) {
@@ -84,4 +101,18 @@ public class Heuristic {
         }
         return score;
     }
-}
+
+    private static int checkLeftNeighbors(Board board, int row, int column, Direction direction) {
+        int emptyLeftNeighbors = 0;
+        BoardElement leftNeighbor = board.getLeftNeighbor(row, column, direction);
+        for (int i = 0; i < AMOUNT_OF_NEIGHBORS_TO_CHECK; i++) {
+            if (Board.NO_COLOR.equals(leftNeighbor.data)) {
+                emptyLeftNeighbors++;
+                leftNeighbor = board.getLeftNeighbor(leftNeighbor,direction);
+            } else {
+                break;
+            }
+        }
+        return emptyLeftNeighbors;
+    }
+    }

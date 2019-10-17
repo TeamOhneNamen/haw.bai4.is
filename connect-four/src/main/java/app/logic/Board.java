@@ -173,25 +173,35 @@ public class Board {
         return this.pruned;
     }
 
-    public BoardElement getLeftNeighbor(int row, int column, String wayToMove) {
-        if("HORIZONTAL".equals(wayToMove)){
-            return new BoardElement(row, column-1, this.get(row, column-1));
+    public BoardElement getLeftNeighbor(int row, int column, Heuristic.Direction direction) {
+        switch(direction){
+            case HORIZONTAL:
+                return new BoardElement(row, column-1, this.get(row, column-1));
+            case DIAGONAL:
+                return new BoardElement(row - 1, column - 1, this.get(row - 1, column - 1));
+            case VERTICAL:
+                return new BoardElement(row - 1, column, this.get(row - 1, column));
         }
         return null;
     }
 
-    public BoardElement getLeftNeighbor(BoardElement boardElement, String wayToMove) {
-        return this.getLeftNeighbor(boardElement.row,boardElement.column,wayToMove);
+    public BoardElement getLeftNeighbor(BoardElement boardElement, Heuristic.Direction directio) {
+        return this.getLeftNeighbor(boardElement.row,boardElement.column,directio);
     }
 
-    public BoardElement getRightNeighbor(int row, int column, String wayToMove) {
-        if("HORIZONTAL".equals(wayToMove)){
-            return new BoardElement(row, column+1, this.get(row, column+1));
+    public BoardElement getRightNeighbor(int row, int column, Heuristic.Direction direction) {
+        switch(direction){
+            case HORIZONTAL:
+                return new BoardElement(row, column+1, this.get(row, column+1));
+            case DIAGONAL:
+                return new BoardElement(row + 1, column + 1, this.get(row + 1, column + 1));
+            case VERTICAL:
+                return new BoardElement(row + 1, column, this.get(row + 1, column));
         }
         return null;
     }
 
-    public BoardElement getRightNeighbor(BoardElement boardElement, String wayToMove) {
-        return this.getRightNeighbor(boardElement.row,boardElement.column,wayToMove);
+    public BoardElement getRightNeighbor(BoardElement boardElement, Heuristic.Direction direction) {
+        return this.getRightNeighbor(boardElement.row,boardElement.column,direction);
     }
 }
