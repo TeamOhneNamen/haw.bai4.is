@@ -169,6 +169,7 @@ public class Controller implements Initializable {
                 if (isAllowed) {
                     isAllowed = false;
                     insertDisc(new Disc(isPlayerOne), column);
+
                 }
             });
 
@@ -214,7 +215,6 @@ public class Controller implements Initializable {
 
                 gameOver();
 
-
             }
             isPlayerOne = !isPlayerOne;
 
@@ -225,24 +225,30 @@ public class Controller implements Initializable {
             System.out.println(board.toString());
 
             displayScore();
+            if(!isPlayerOne){
+                isPlayerOne = !isPlayerOne;
+                makeAIMove();
+            }
         });
 
         translateTransition.play();
-        if(!isPlayerOne){
-            System.out.println("Make AI Move");
-            makeAIMove();
-        }
+
     }
 
     private void makeAIMove(){
         Disc disc = new Disc(!isPlayerOne);
         int column = MiniMax.determineBestMove(board,Controller.MINIMAX_DEPTH,Controller.PRUNE,Controller.PRINT_MINIMAX_TREE);
         System.out.println("Make AI Move in col: "+column);
-        //this.insertDisc(disc, column);
+        isPlayerOne = !isPlayerOne;
+        insertDisc(disc, column);
     }
 
     private void displayScore() {
-        this.score1.setText(String.valueOf(Heuristic.determineScore(board)));
+        double score = Heuristic.determineScore(board);
+        if(score==100.0){
+
+        }
+        this.score1.setText(String.valueOf(score));
     }
 
 

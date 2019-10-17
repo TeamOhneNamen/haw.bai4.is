@@ -1,0 +1,8 @@
+app\logic\Heuristic.class
+app\Main.class
+app\logic\minimax\MiniMax.class
+app\logic\Board.class
+app\ui\Controller.class
+app\logic\minimax\TreeNode.class
+app\logic\minimax\MiniMaxTest.class
+app\ui\Controller$Disc.class

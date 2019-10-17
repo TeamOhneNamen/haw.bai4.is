@@ -1,8 +1,8 @@
-/home/ferdinand/Dokumente/Studium/IS/haw.bai4.isp/connect-four/src/main/java/app/logic/minimax/TreeNode.java
-/home/ferdinand/Dokumente/Studium/IS/haw.bai4.isp/connect-four/src/main/java/app/Main.java
-/home/ferdinand/Dokumente/Studium/IS/haw.bai4.isp/connect-four/src/main/java/app/ui/Controller.java
-/home/ferdinand/Dokumente/Studium/IS/haw.bai4.isp/connect-four/src/main/java/app/logic/Board.java
-/home/ferdinand/Dokumente/Studium/IS/haw.bai4.isp/connect-four/src/main/java/app/logic/HeuristicTest.java
-/home/ferdinand/Dokumente/Studium/IS/haw.bai4.isp/connect-four/src/main/java/app/logic/BoardTest.java
-/home/ferdinand/Dokumente/Studium/IS/haw.bai4.isp/connect-four/src/main/java/app/logic/minimax/MiniMax.java
-/home/ferdinand/Dokumente/Studium/IS/haw.bai4.isp/connect-four/src/main/java/app/logic/Heuristic.java
+P:\UNI\haw.bai4.isp\connect-four\src\main\java\app\logic\Board.java
+P:\UNI\haw.bai4.isp\connect-four\src\main\java\app\logic\BoardElement.java
+P:\UNI\haw.bai4.isp\connect-four\src\main\java\app\logic\minimax\TreeNode.java
+P:\UNI\haw.bai4.isp\connect-four\src\main\java\app\logic\minimax\MiniMaxTest.java
+P:\UNI\haw.bai4.isp\connect-four\src\main\java\app\ui\Controller.java
+P:\UNI\haw.bai4.isp\connect-four\src\main\java\app\logic\Heuristic.java
+P:\UNI\haw.bai4.isp\connect-four\src\main\java\app\Main.java
+P:\UNI\haw.bai4.isp\connect-four\src\main\java\app\logic\minimax\MiniMax.java
