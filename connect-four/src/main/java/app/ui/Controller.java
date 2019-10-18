@@ -35,8 +35,8 @@ public class Controller implements Initializable {
 
 
     public static final boolean PRUNE = true;
-    public static final boolean PRINT_MINIMAX_TREE = true;
-    public static final int MINIMAX_DEPTH = 8;
+    public static final boolean PRINT_MINIMAX_TREE = false;
+    public static final int MINIMAX_DEPTH = 3;
     public static final int COLUMNS = 7;
     public static final int ROWS = 6;
     private static final int CIRCLE_DIAMETER = 80;
@@ -214,7 +214,11 @@ public class Controller implements Initializable {
         translateTransition.setOnFinished(event -> {
             isAllowed = true;
 
-            if (gameEnded(currentRow, column)) {
+            insertedDiscArray[currentRow][column] = disc;
+            board.set(currentRow, column, disc.getFill().toString());
+            System.out.println(board.toSimpleString());
+
+            if (Heuristic.gameEnded(board,disc.getFill().toString())) {
 
                 gameOver();
 
@@ -223,9 +227,6 @@ public class Controller implements Initializable {
 
             playerNameLabel.setText(isPlayerOne ? PLAYER_ONE : PLAYER_Two);
 
-            insertedDiscArray[currentRow][column] = disc;
-            board.set(currentRow, column, disc.getFill().toString());
-            System.out.println(board.toString());
 
             displayScore();
             if(!isPlayerOne){
@@ -252,62 +253,6 @@ public class Controller implements Initializable {
 
         }
         this.score1.setText(String.valueOf(score));
-    }
-
-
-    private boolean gameEnded(int row, int column) {
-
-        List<Point2D> vertticalPoints = IntStream.rangeClosed(row - 3, row + 3).mapToObj(r -> new Point2D(r, column))
-                .collect(Collectors.toList());
-
-        List<Point2D> horizontalPoints = IntStream.rangeClosed(column - 3, column + 3).mapToObj(c -> new Point2D(row, c))
-                .collect(Collectors.toList());
-
-
-        Point2D startPoint1 = new Point2D(row - 3, column + 3);
-        List<Point2D> diagonal1Points = IntStream.rangeClosed(0, 6).mapToObj(i -> startPoint1.add(i, -i))
-                .collect(Collectors.toList());
-
-        Point2D startPoint2 = new Point2D(row - 3, column - 3);
-        List<Point2D> diagonal2Points = IntStream.rangeClosed(0, 6).mapToObj(i -> startPoint2.add(i, i))
-                .collect(Collectors.toList());
-
-
-        boolean isEnded = checkCombinations(vertticalPoints) || checkCombinations(horizontalPoints)
-                || checkCombinations(diagonal1Points) || checkCombinations(diagonal2Points);
-        return isEnded;
-    }
-
-
-    private boolean checkCombinations(List<Point2D> points) {
-
-        int chain = 0;
-        for (Point2D point : points
-        ) {
-
-
-            int r_ind = (int) point.getX();
-            int c_ind = (int) point.getY();
-
-            Disc disc = getDiscIfPresent(r_ind, c_ind);
-
-            if (disc != null && disc.isPlayerOneMove == isPlayerOne) {
-                chain++;
-
-                if (chain == 4) {
-                    return true;
-                }
-
-            } else {
-                chain = 0;
-
-
-            }
-
-
-        }
-        return false;
-
     }
 
     private Disc getDiscIfPresent(int row, int column) {

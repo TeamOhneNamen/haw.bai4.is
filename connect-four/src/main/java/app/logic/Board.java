@@ -132,7 +132,7 @@ public class Board {
 
     public String rowToString(int row) {
         StringBuffer stringBuffer = new StringBuffer();
-        for (int j = 0; j < rowLength(); j++) {
+        for (int j = 0; j < columnLength(); j++) {
             stringBuffer.append(" "+ this.board[row][j]);
         }
         return stringBuffer.toString();

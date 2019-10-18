@@ -3,16 +3,33 @@ package app.logic.minimax;
 import app.logic.Board;
 import app.logic.Heuristics.Heuristic;
 import app.ui.Controller;
+import guru.nidi.graphviz.engine.Format;
+import guru.nidi.graphviz.engine.Graphviz;
+import guru.nidi.graphviz.model.MutableGraph;
+import guru.nidi.graphviz.parse.Parser;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MiniMax {
+
 
     //return the column of the best move
     public static int determineBestMove(Board board, int depth, boolean pruned, boolean printTree){
         TreeNode<Board> tree = MiniMax.contructTree(board, depth);
         MiniMax.miniMax(tree, pruned);
         Board bestMove = findBestMove(tree);
+        if(printTree){
+            final String fileName = "src/main/resources/graph/determineBestMove.";
+            String treeString = TreeNode.treeToString(tree,true);
+            try {
+                MutableGraph g = Parser.read(treeString);
+                Graphviz.fromGraph(g).render(Format.PNG).toFile(new File(fileName+"png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         return bestMove.getLastMove().column;
     }
 

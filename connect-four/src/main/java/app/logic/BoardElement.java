@@ -9,4 +9,9 @@ public class BoardElement {
         this.column = column;
         this.data = data;
     }
+
+    @Override
+    public String toString(){
+        return "row: " + String.valueOf(row) + "col: " +String.valueOf(column) + " value: " + data;
+    }
 }

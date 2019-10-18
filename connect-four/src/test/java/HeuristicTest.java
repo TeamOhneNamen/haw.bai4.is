@@ -4,6 +4,8 @@ import app.ui.Controller;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class HeuristicTest {
 
@@ -11,42 +13,40 @@ public class HeuristicTest {
     final String white = "WHITE";
 
     @Test
-    public void horizontalScoreFirstFieldsFilled(){
+    public void gameEndedVerticalPositive(){
         Board board = new Board(black,white);
         board.set(0,0, black);
-        board.set(0,1, black);
-        board.set(0,2, black);
-        assertEquals(3.5, Controller.heuristic.determineScore(board), 0.0);
+        board.set(0,1, white);
+        board.set(1,0, black);
+        board.set(0,2, white);
+        board.set(2,0, black);
+        board.set(1,2, white);
+        board.set(3,0, black);
+        assertTrue(Heuristic.gameEnded(board,black));
     }
 
     @Test
-    public void horizontalScoreNotFirstFieldsFilled(){
+    public void gameEndedNegative(){
         Board board = new Board(black,white);
+        board.set(0,0, black);
+        board.set(0,1, white);
+        board.set(1,0, black);
+        board.set(0,2, white);
+        board.set(2,0, black);
+        assertFalse(Heuristic.gameEnded(board,black));
+    }
+
+    @Test
+    public void gameEndedHorizontalPositive(){
+        Board board = new Board(black,white);
+        board.set(0,0, black);
+        board.set(1,1, white);
         board.set(0,1, black);
+        board.set(2,0, white);
         board.set(0,2, black);
+        board.set(0,4, white);
         board.set(0,3, black);
-        assertEquals(7.5, Controller.heuristic.determineScore(board), 0.0);
+        assertTrue(Heuristic.gameEnded(board,black));
     }
 
-    @Test
-    public void horizontalScoreSingleDisk(){
-        Board board = new Board(black,white);
-        board.set(2,2, black);
-        assertEquals(4.0, Controller.heuristic.determineScore(board), 0.0);
-    }
-
-    @Test
-    public void horizontalScoreNoDisk(){
-        Board board = new Board(black,white);
-        assertEquals(0, Controller.heuristic.determineScore(board), 0.0);
-    }
-
-    @Test
-    public void horizontalScoreNoChanceToConnectFour(){
-        Board board = new Board(black,white);
-        board.set(0,1, black);
-        board.set(0,2, black);
-        board.set(0,3, white);
-        assertEquals(5.5, Controller.heuristic.determineScore(board), 0.0);
-    }
 }
