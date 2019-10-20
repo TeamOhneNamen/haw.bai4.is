@@ -1,3 +1,8 @@
 connect-four/.idea/*
 connect-four/target/*
 connect-four/out/*
+.idea/workspace.xml
+.idea/vcs.xml
+.idea/modules.xml
+.idea/misc.xml
+.idea/libraries/ConnectFour.xml

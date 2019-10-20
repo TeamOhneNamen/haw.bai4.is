@@ -1,7 +1,6 @@
 package app.ui;
 
 import app.logic.Board;
-import app.logic.Heuristics.FerdiHeiristic;
 import app.logic.Heuristics.Heuristic;
 import app.logic.Heuristics.IHeuristic;
 import app.logic.minimax.MiniMax;
@@ -9,12 +8,7 @@ import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Point2D;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -28,8 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Controller implements Initializable {
 
