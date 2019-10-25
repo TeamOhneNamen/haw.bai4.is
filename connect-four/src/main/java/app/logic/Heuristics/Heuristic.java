@@ -2,7 +2,10 @@ package app.logic.Heuristics;
 
 import app.logic.Board;
 import app.logic.BoardElement;
+import app.logic.Player;
 import app.logic.minimax.Direction;
+import app.ui.Controller;
+import jdk.nashorn.internal.objects.annotations.Constructor;
 
 //Based on this idea: https://cs.stackexchange.com/a/13455
 public class Heuristic implements IHeuristic {
@@ -11,12 +14,13 @@ public class Heuristic implements IHeuristic {
     final static double MAXIMUM_SCORE = 100.0;
 
     public double determineScore(Board board) {
-        double scoreMaximizer = determineScore(board, board.nextPlayerColor);
-        double scoreMinimizer = determineScore(board, board.getLastMove().data);
+        double scoreMaximizer = determineScore(board, board.nextPlayer);
+        double scoreMinimizer = determineScore(board, Controller.getPlayerByColor(board.getLastMove().data));
         return scoreMaximizer - scoreMinimizer;
     }
 
-    public double determineScore(Board board, String playerColor) {
+    @Override
+    public double determineScore(Board board, Player player) {
         int emptyLeftNeighbors = 0;
         int emptyRightNeighbors = 0;
         int inARow = 0;
@@ -56,7 +60,7 @@ public class Heuristic implements IHeuristic {
                             break;
                     }
                     // 1 in a row
-                    if (playerColor.equals(board.get(row, column))) {
+                    if (player.getColor().equals(board.get(row, column))) {
                         inARow++;
                         // space to the left
                         emptyLeftNeighbors = checkLeftNeighbors(board, row, column, direction);
@@ -65,7 +69,7 @@ public class Heuristic implements IHeuristic {
 
                         for (int h = 0; h < (AMOUNT_OF_NEIGHBORS_TO_CHECK + 2); h++) {
 
-                            if (playerColor.equals(rightNeighbor.data)) {
+                            if (player.getColor().equals(rightNeighbor.data)) {
                                 inARow++;
                                 j++;
                                 rightNeighbor = board.getRightNeighbor(rightNeighbor, direction);

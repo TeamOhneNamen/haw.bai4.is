@@ -1,4 +1,7 @@
 import app.logic.Board;
+import app.logic.Heuristics.Heuristic;
+import app.logic.Player;
+import app.ui.Controller;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -13,7 +16,7 @@ public class BoardTest {
 
     @Test
     public void generateNextConstellationsSixPossibleTest(){
-        Board board = new Board(black,white);
+        Board board = new Board(new Player(new Heuristic(), Controller.player1.getColor(), Controller.player1.getName()),new Player(new Heuristic(), Controller.player2.getColor(), Controller.player2.getName()));
         board.set(5,0, black);
         board.set(5,1, black);
         board.set(5,2, black);
@@ -24,7 +27,7 @@ public class BoardTest {
 
     @Test
     public void generateNextConstellationsFivePossibleTest(){
-        Board board = new Board(black,white);
+        Board board = new Board(new Player(new Heuristic(), Controller.player1.getColor(), Controller.player1.getName()),new Player(new Heuristic(), Controller.player2.getColor(), Controller.player2.getName()));
         board.set(0,1, black);
         board.set(1,1, black);
         board.set(2,1, black);
@@ -38,7 +41,7 @@ public class BoardTest {
 
     @Test
     public void duplicateTestNegative(){
-        Board board = new Board(black,white);
+        Board board = new Board(new Player(new Heuristic(), Controller.player1.getColor(), Controller.player1.getName()),new Player(new Heuristic(), Controller.player2.getColor(), Controller.player2.getName()));
         board.set(0,1, black);
         board.set(1,1, black);
         board.set(2,1, black);
@@ -55,7 +58,7 @@ public class BoardTest {
 
     @Test
     public void duplicateTestPositive(){
-        Board board = new Board(black,white);
+        Board board = new Board(new Player(new Heuristic(), Controller.player1.getColor(), Controller.player1.getName()),new Player(new Heuristic(), Controller.player2.getColor(), Controller.player2.getName()));
         board.set(0,1, black);
         board.set(1,1, black);
         board.set(2,1, black);

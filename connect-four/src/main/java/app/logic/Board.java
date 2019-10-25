@@ -17,29 +17,29 @@ public class Board {
     public static final double NO_SCORE = 0.0;
     public static final double LOWEST_NUMBER = -1000.0;
     public static final double HIGHEST_NUMBER = 1000.0;
-    public static final String MAXIMIZER = Controller.discColor2;
+    public static final String MAXIMIZER = Controller.player2.getColor();
     private boolean pruned = false;
     public Pair<Double,Double> borders = new Pair<>(LOWEST_NUMBER, LOWEST_NUMBER);
     //the disc color of the player who is on it
     //used for generating next possible constellations
-    public String nextPlayerColor;
+    public Player nextPlayer;
     //the disc color of the player who made the last move
     //used for generating next possible constellations
-    public String lastPlayerColor;
+    public Player lastPlayer;
     public double score;
 
     private BoardElement lastMove;
 
-    public Board(String[][] board, String lastPlayerColor, String nextPlayerColor) {
+    public Board(String[][] board, Player lastPlayer, Player nextPlayer) {
         this.board = board;
-        this.lastPlayerColor = lastPlayerColor;
-        this.nextPlayerColor = nextPlayerColor;
+        this.lastPlayer = lastPlayer;
+        this.nextPlayer = nextPlayer;
     }
 
-    public Board(String lastPlayerColor, String nextPlayerColor) {
+    public Board(Player lastPlayer, Player nextPlayer) {
         this.board = new String[Controller.ROWS][Controller.COLUMNS];
-        this.lastPlayerColor = lastPlayerColor;
-        this.nextPlayerColor = nextPlayerColor;
+        this.lastPlayer = lastPlayer;
+        this.nextPlayer = nextPlayer;
     }
 
     public Board duplicate() {
@@ -49,7 +49,7 @@ public class Board {
         for (int r = 0; r < input.length; r++) {
             result[r] = input[r].clone();
         };
-        return new Board(result, this.lastPlayerColor, this.nextPlayerColor);
+        return new Board(result, this.lastPlayer, this.nextPlayer);
     }
 
     public void set(int row, int column, String value) {
@@ -91,16 +91,16 @@ public class Board {
     }
 
     private void switchCurrentLastPlayer() {
-        String temp = this.lastPlayerColor;
-        this.lastPlayerColor = this.nextPlayerColor;
-        this.nextPlayerColor = temp;
+        Player temp = this.lastPlayer;
+        this.lastPlayer = this.nextPlayer;
+        this.nextPlayer = temp;
     }
 
     //returns copy board with value inserted in given line
     //null if insert not possible
-    private Board insertToDuplicateInColumn(int column, String value) {
+    private Board insertToDuplicateInColumn(int column, Player value) {
         Board boardDuplicate = duplicate();
-        if (boardDuplicate.insertInColumn(column, value)) {
+        if (boardDuplicate.insertInColumn(column, value.getColor())) {
             return boardDuplicate;
         } else {
             return null;
@@ -113,7 +113,7 @@ public class Board {
         ArrayList<Board> constellations = new ArrayList<>();
         for (int i = 0; i < columnLength() - 1; i++) {
             Board currentBoard = rootBoard.duplicate();
-            currentBoard = currentBoard.insertToDuplicateInColumn(i, this.nextPlayerColor);
+            currentBoard = currentBoard.insertToDuplicateInColumn(i, this.nextPlayer);
             if (null != currentBoard) {
                 //currentBoard.print();
                 constellations.add(currentBoard);
@@ -157,8 +157,8 @@ public class Board {
         str = str.replace(" ","");
         str = str.replace("[","");
         str = str.replace("]","");
-        str = str.replace(Controller.discColor1,"O");
-        str = str.replace(Controller.discColor2,"X");
+        str = str.replace(Controller.player1.getColor(),"O");
+        str = str.replace(Controller.player2.getColor(),"X");
         str = str.replace("null",".");
         return str;
     }

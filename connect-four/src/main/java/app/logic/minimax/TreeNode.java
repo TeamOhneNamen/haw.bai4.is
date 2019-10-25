@@ -76,7 +76,7 @@ public class TreeNode<T> {
         String color = "yellow";
         stringOfNode = ((Board)node.data).toSimpleStringWithScore();
         if(colorful){
-            if(((Board)node.data).nextPlayerColor.equals(Board.MAXIMIZER)){
+            if(((Board)node.data).nextPlayer.equals(Board.MAXIMIZER)){
                 color = "red";
             }else if(((Board)node.data).isPruned()){
                 color = "green";

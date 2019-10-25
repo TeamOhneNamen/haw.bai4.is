@@ -1,5 +1,6 @@
 import app.logic.Board;
 import app.logic.Heuristics.Heuristic;
+import app.logic.Player;
 import app.ui.Controller;
 import org.junit.Test;
 
@@ -14,7 +15,7 @@ public class HeuristicTest {
 
     @Test
     public void gameEndedVerticalPositive(){
-        Board board = new Board(black,white);
+        Board board = new Board(new Player(new Heuristic(), Controller.player1.getColor(), Controller.player1.getName()),new Player(new Heuristic(), Controller.player2.getColor(), Controller.player2.getName()));
         board.set(0,0, black);
         board.set(0,1, white);
         board.set(1,0, black);
@@ -27,7 +28,7 @@ public class HeuristicTest {
 
     @Test
     public void gameEndedNegative(){
-        Board board = new Board(black,white);
+        Board board = new Board(new Player(new Heuristic(), Controller.player1.getColor(), Controller.player1.getName()),new Player(new Heuristic(), Controller.player2.getColor(), Controller.player2.getName()));
         board.set(0,0, black);
         board.set(0,1, white);
         board.set(1,0, black);
@@ -38,7 +39,7 @@ public class HeuristicTest {
 
     @Test
     public void gameEndedHorizontalPositive(){
-        Board board = new Board(black,white);
+        Board board = new Board(new Player(new Heuristic(), Controller.player1.getColor(), Controller.player1.getName()),new Player(new Heuristic(), Controller.player2.getColor(), Controller.player2.getName()));
         board.set(0,0, black);
         board.set(1,1, white);
         board.set(0,1, black);

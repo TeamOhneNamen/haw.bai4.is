@@ -79,7 +79,7 @@ public class MiniMax {
             return board.score;
         }
         //maximizer is next to move
-        if(Board.MAXIMIZER.equals(tree.data.nextPlayerColor)){
+        if(Board.MAXIMIZER.equals(tree.data.nextPlayer)){
             double maxEval = Board.LOWEST_NUMBER;
             for(int i = 0; i < tree.children.size()-1; i++){
                 double eval = miniMax(tree.children.get(i));
@@ -115,7 +115,7 @@ public class MiniMax {
             return board.score;
         }
         //maximizer is next to move
-        if(Board.MAXIMIZER.equals(tree.data.nextPlayerColor)){
+        if(Board.MAXIMIZER.equals(tree.data.nextPlayer)){
             double maxEval = Board.LOWEST_NUMBER;
             for(int i = 0; i < tree.children.size()-1; i++){
                 double eval = miniMax(tree.children.get(i),alpha,beta);

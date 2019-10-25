@@ -57,8 +57,6 @@ public class Main extends Application {
 			controller.pl1.clear();
 			controller.pl2.clear();
 
-			controller.PLAYER_ONE="PLAYER ONE";
-			controller.PLAYER_Two="PLAYER TWO";
 			resetGame();
 
 

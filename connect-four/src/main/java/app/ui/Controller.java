@@ -1,9 +1,12 @@
 package app.ui;
 
 import app.logic.Board;
+import app.logic.Heuristics.FerdiHeiristic;
 import app.logic.Heuristics.Heuristic;
 import app.logic.Heuristics.IHeuristic;
+import app.logic.Player;
 import app.logic.minimax.MiniMax;
+import app.logic.minimax.MiniMaxFerdi;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -32,18 +35,22 @@ public class Controller implements Initializable {
     public static final int COLUMNS = 7;
     public static final int ROWS = 6;
     private static final int CIRCLE_DIAMETER = 80;
-    public static final String discColor1 = "0x000000ff";
-    public static final String discColor2 = "0xffffffff";
-    public static Board board = new Board(discColor2, discColor1);
-
-    public static String PLAYER_ONE = "Player One";
-    public static String PLAYER_Two = "Player Two";
 
     public static boolean isPlayerOne = true;
+    public static boolean isGameOver = false;
 
     private Disc[][] insertedDiscArray = new Disc[ROWS][COLUMNS];
 
-    public static IHeuristic heuristic = new Heuristic();
+    public static IHeuristic heuristic = new FerdiHeiristic();
+    public static IHeuristic heuristic2 = new Heuristic();
+
+    public static MiniMaxFerdi miniMaxFerdi;
+
+    public static Player player1 = new Player(heuristic, "0x000000ff", "Ferdinand");
+    public static Player player2 = new Player(heuristic2, "0xffffffff", "Thorben");
+
+    public static Board board = new Board(player2, player1);
+
 
     private boolean isAllowed = true;
 
@@ -65,6 +72,27 @@ public class Controller implements Initializable {
     public Button setBtn;
 
 
+    public static Player getPlayerByName(String name){
+        System.out.println(name);
+        if(player1.getName().equals(name)){
+            return player1;
+        }else if(player2.getName().equals(name)){
+            return player2;
+        }else{
+            return null;
+        }
+    }
+
+    public static Player getPlayerByColor(String color){
+        if(player1.getColor().equals(color)){
+            return player1;
+        }else if(player2.getColor().equals(color)){
+            return player2;
+        }else{
+            return null;
+        }
+    }
+
     public void createPlayground() {
 
 
@@ -74,16 +102,14 @@ public class Controller implements Initializable {
 
         setBtn.setOnAction(event -> {
 
-            PLAYER_ONE = pl1.getText();
-            PLAYER_Two = pl2.getText();
+            player1.setName(pl1.getText());
+            player2.setName(pl2.getText());
 
-            if (PLAYER_ONE.isEmpty() || PLAYER_Two.isEmpty()) {
+            if (player1.getName().isEmpty() || player2.getName().isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Enter all Details");
                 alert.setContentText("Enter details for both Player One and Player Two");
                 alert.show();
-                PLAYER_ONE = "PLAYER ONE";
-                PLAYER_Two = "PLAYER TWO";
                 resetGame();
                 pl1.clear();
                 pl2.clear();
@@ -211,20 +237,18 @@ public class Controller implements Initializable {
             System.out.println(board.toSimpleString());
 
             if (Heuristic.gameEnded(board,disc.getFill().toString())) {
-
+                isGameOver = true;
                 gameOver();
 
             }
             isPlayerOne = !isPlayerOne;
 
-            playerNameLabel.setText(isPlayerOne ? PLAYER_ONE : PLAYER_Two);
-
+            playerNameLabel.setText(isPlayerOne ? player2.getName() : player1.getName());
 
             displayScore();
-            if(!isPlayerOne){
-                isPlayerOne = !isPlayerOne;
-                makeAIMove();
-            }
+            isPlayerOne = !isPlayerOne;
+            makeAIMove();
+
         });
 
         translateTransition.play();
@@ -233,18 +257,30 @@ public class Controller implements Initializable {
 
     private void makeAIMove(){
         Disc disc = new Disc(!isPlayerOne);
-        int column = MiniMax.determineBestMove(board,Controller.MINIMAX_DEPTH,Controller.PRUNE,Controller.PRINT_MINIMAX_TREE);
-        System.out.println("Make AI Move in col: "+column);
-        isPlayerOne = !isPlayerOne;
-        insertDisc(disc, column);
+        //int column = MiniMax.determineBestMove(board,Controller.MINIMAX_DEPTH,Controller.PRUNE,Controller.PRINT_MINIMAX_TREE);
+        if(!isGameOver){
+            if(isPlayerOne){
+                miniMaxFerdi = new MiniMaxFerdi(player1.getHeuristic(), player1, player2);
+            }else{
+                miniMaxFerdi = new MiniMaxFerdi(player2.getHeuristic(), player2, player1);
+            }
+            int column = miniMaxFerdi.minmax(board);
+            if(column!=Integer.MIN_VALUE){
+                System.out.println("Make AI Move in col: "+column);
+                isPlayerOne = !isPlayerOne;
+                insertDisc(disc, column);
+            }
+        }
+
+
     }
 
     private void displayScore() {
-        double score = Controller.heuristic.determineScore(board);
-        if(score==100.0){
+        double score1 = Controller.heuristic.determineScore(board, player1);
+        double score2 = Controller.heuristic2.determineScore(board, player2);
 
-        }
-        this.score1.setText(String.valueOf(score));
+        this.score1.setText(String.valueOf(score1));
+        this.score2.setText(String.valueOf(score2));
     }
 
     private Disc getDiscIfPresent(int row, int column) {
@@ -257,7 +293,7 @@ public class Controller implements Initializable {
 
     private void gameOver() {
 
-        String winner = isPlayerOne ? PLAYER_ONE : PLAYER_Two;
+        String winner = isPlayerOne ? player1.getName() : player2.getName();
         System.out.println("Winner is " + winner);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -305,9 +341,10 @@ public class Controller implements Initializable {
         }
 
         isPlayerOne = true;
-        playerNameLabel.setText(PLAYER_ONE);
+        playerNameLabel.setText(player1.getName());
         board.clear();
         createPlayground();
+        isGameOver = false;
     }
 
 
@@ -322,7 +359,7 @@ public class Controller implements Initializable {
             setCenterX(CIRCLE_DIAMETER / 2);
             setCenterY(CIRCLE_DIAMETER / 2);
 
-            setFill(isPlayerOneMove ? Color.valueOf(discColor1) : Color.valueOf(discColor2));
+            setFill(isPlayerOneMove ? Color.valueOf(player1.getColor()) : Color.valueOf(player2.getColor()));
         }
 
     }

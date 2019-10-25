@@ -25,10 +25,10 @@ public class MiniMaxTest {
 
     public static void miniMaxTest(){
         final String fileName = "src/main/resources/graph/miniMaxTest.";
-        Board board = new Board(Controller.discColor2,Controller.discColor1);
-        board.insertInColumn(5, Controller.discColor1);
-        board.insertInColumn(1, Controller.discColor2);
-        board.insertInColumn(5, Controller.discColor1);
+        Board board = new Board(Controller.player2,Controller.player1);
+        board.insertInColumn(5, Controller.player1.getColor());
+        board.insertInColumn(1, Controller.player2.getColor());
+        board.insertInColumn(5, Controller.player1.getColor());
 
         TreeNode<Board> tree = contructTree(board,2);
         MiniMax.miniMax(tree,true);
