@@ -127,9 +127,9 @@ public class Heuristic implements IHeuristic {
         return emptyLeftNeighbors;
     }
 
-
-    public static boolean gameEnded(Board board, String playerColor) {
-        System.out.println("Did " + playerColor + " won?");
+    @Override
+    public boolean gameEnded(Board board, Player player) {
+        System.out.println("Did " + player.getName() + " won?");
         int inARow = 0;
         int outerCountBorder = 0;
         int innerCountBorder = 0;
@@ -165,7 +165,7 @@ public class Heuristic implements IHeuristic {
                             break;
                     }
                     // 1 in a row
-                    if (playerColor.equals(board.get(row, column))) {
+                    if (player.getColor().equals(board.get(row, column))) {
                         inARow++;
                         System.out.print("check col/row: " + j + " and ");
                         System.out.println(direction.toString() + " has " + inARow + " in a row");
@@ -174,7 +174,7 @@ public class Heuristic implements IHeuristic {
 
                         for (int h = 0; h < (AMOUNT_OF_NEIGHBORS_TO_CHECK + 2); h++) {
 
-                            if (playerColor.equals(rightNeighbor.data)) {
+                            if (player.getColor().equals(rightNeighbor.data)) {
                                 inARow++;
                                 System.out.print("check col/row: " + j + " and ");
                                 System.out.println(direction.toString() + " has " + inARow + " in a row (for loop)");

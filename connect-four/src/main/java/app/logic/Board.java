@@ -1,12 +1,10 @@
 package app.logic;
 
 import app.logic.minimax.Direction;
-import app.logic.minimax.TreeNode;
 import app.ui.Controller;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
-import java.util.List;
 
 // a more simple form of the disc matrix in Controller
 // stores just the color of the disc
@@ -14,10 +12,9 @@ import java.util.List;
 public class Board {
     private String[][] board;
     public static final String NO_COLOR = "NONE";
-    public static final double NO_SCORE = 0.0;
     public static final double LOWEST_NUMBER = -1000.0;
     public static final double HIGHEST_NUMBER = 1000.0;
-    public static final String MAXIMIZER = Controller.player2.getColor();
+    public static final String MAXIMIZER = Controller.playerThorben.getColor();
     private boolean pruned = false;
     public Pair<Double,Double> borders = new Pair<>(LOWEST_NUMBER, LOWEST_NUMBER);
     //the disc color of the player who is on it
@@ -157,8 +154,8 @@ public class Board {
         str = str.replace(" ","");
         str = str.replace("[","");
         str = str.replace("]","");
-        str = str.replace(Controller.player1.getColor(),"O");
-        str = str.replace(Controller.player2.getColor(),"X");
+        str = str.replace(Controller.playerFerdi.getColor(),"O");
+        str = str.replace(Controller.playerThorben.getColor(),"X");
         str = str.replace("null",".");
         return str;
     }

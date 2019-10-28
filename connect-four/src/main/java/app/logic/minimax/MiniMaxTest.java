@@ -9,9 +9,6 @@ import guru.nidi.graphviz.parse.Parser;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import static app.logic.minimax.MiniMax.contructTree;
 
@@ -25,10 +22,10 @@ public class MiniMaxTest {
 
     public static void miniMaxTest(){
         final String fileName = "src/main/resources/graph/miniMaxTest.";
-        Board board = new Board(Controller.player2,Controller.player1);
-        board.insertInColumn(5, Controller.player1.getColor());
-        board.insertInColumn(1, Controller.player2.getColor());
-        board.insertInColumn(5, Controller.player1.getColor());
+        Board board = new Board(Controller.playerThorben,Controller.playerFerdi);
+        board.insertInColumn(5, Controller.playerFerdi.getColor());
+        board.insertInColumn(1, Controller.playerThorben.getColor());
+        board.insertInColumn(5, Controller.playerFerdi.getColor());
 
         TreeNode<Board> tree = contructTree(board,2);
         MiniMax.miniMax(tree,true);

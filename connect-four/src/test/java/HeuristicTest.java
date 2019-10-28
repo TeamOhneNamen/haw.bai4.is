@@ -15,7 +15,7 @@ public class HeuristicTest {
 
     @Test
     public void gameEndedVerticalPositive(){
-        Board board = new Board(new Player(new Heuristic(), Controller.player1.getColor(), Controller.player1.getName()),new Player(new Heuristic(), Controller.player2.getColor(), Controller.player2.getName()));
+        Board board = new Board(new Player(new Heuristic(), Controller.playerFerdi.getColor(), Controller.playerFerdi.getName()),new Player(new Heuristic(), Controller.playerThorben.getColor(), Controller.playerThorben.getName()));
         board.set(0,0, black);
         board.set(0,1, white);
         board.set(1,0, black);
@@ -23,23 +23,23 @@ public class HeuristicTest {
         board.set(2,0, black);
         board.set(1,2, white);
         board.set(3,0, black);
-        assertTrue(Heuristic.gameEnded(board,black));
+        assertTrue(Controller.playerFerdi.getHeuristic().gameEnded(board,Controller.playerFerdi));
     }
 
     @Test
     public void gameEndedNegative(){
-        Board board = new Board(new Player(new Heuristic(), Controller.player1.getColor(), Controller.player1.getName()),new Player(new Heuristic(), Controller.player2.getColor(), Controller.player2.getName()));
+        Board board = new Board(new Player(new Heuristic(), Controller.playerFerdi.getColor(), Controller.playerFerdi.getName()),new Player(new Heuristic(), Controller.playerThorben.getColor(), Controller.playerThorben.getName()));
         board.set(0,0, black);
         board.set(0,1, white);
         board.set(1,0, black);
         board.set(0,2, white);
         board.set(2,0, black);
-        assertFalse(Heuristic.gameEnded(board,black));
+        assertFalse(Controller.playerFerdi.getHeuristic().gameEnded(board,Controller.playerFerdi));
     }
 
     @Test
     public void gameEndedHorizontalPositive(){
-        Board board = new Board(new Player(new Heuristic(), Controller.player1.getColor(), Controller.player1.getName()),new Player(new Heuristic(), Controller.player2.getColor(), Controller.player2.getName()));
+        Board board = new Board(new Player(new Heuristic(), Controller.playerFerdi.getColor(), Controller.playerFerdi.getName()),new Player(new Heuristic(), Controller.playerThorben.getColor(), Controller.playerThorben.getName()));
         board.set(0,0, black);
         board.set(1,1, white);
         board.set(0,1, black);
@@ -47,7 +47,7 @@ public class HeuristicTest {
         board.set(0,2, black);
         board.set(0,4, white);
         board.set(0,3, black);
-        assertTrue(Heuristic.gameEnded(board,black));
+        assertFalse(Controller.playerFerdi.getHeuristic().gameEnded(board,Controller.playerFerdi));
     }
 
 }

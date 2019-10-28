@@ -75,7 +75,7 @@ public class MiniMax {
     private static double miniMax(TreeNode<Board> tree){
         if(tree.isLeaf()){
             Board board = tree.data;
-            board.score = Controller.heuristic.determineScore(board);
+            board.score = Controller.heuristicThorben.determineScore(board);
             return board.score;
         }
         //maximizer is next to move
@@ -111,7 +111,7 @@ public class MiniMax {
     private static double miniMax(TreeNode<Board> tree, double alpha, double beta){
         if(tree.isLeaf()){
             Board board = tree.data;
-            board.score = Controller.heuristic.determineScore(board);
+            board.score = Controller.heuristicThorben.determineScore(board);
             return board.score;
         }
         //maximizer is next to move

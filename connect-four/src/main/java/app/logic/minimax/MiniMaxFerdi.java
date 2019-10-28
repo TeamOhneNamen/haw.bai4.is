@@ -10,15 +10,13 @@ import java.util.List;
 
 public class MiniMaxFerdi {
 
-    private static int searchDeph = 4;
-    private static IHeuristic heuristic;
+    private static int searchDeph = 6;
     private static int gespeicherterZug = Integer.MIN_VALUE;
 
     Player player_max;
     Player player_min;
 
-    public MiniMaxFerdi(IHeuristic heuristic, Player max, Player min) {
-        this.heuristic = heuristic;
+    public MiniMaxFerdi(Player max, Player min) {
         this.player_max = max;
         this.player_min = min;
     }
@@ -31,7 +29,7 @@ public class MiniMaxFerdi {
 
     double max(int tiefe, double alpha, double beta, Board board) {
         if (tiefe == 0 || generiereMoeglicheZuege(board, player_max).size()==0){
-            return heuristic.determineScore(board);
+            return player_max.getHeuristic().determineScore(board, player_max);
         }
         double maxWert = alpha;
         List<Board> nextMoves = generiereMoeglicheZuege(board, player_max);
@@ -50,7 +48,7 @@ public class MiniMaxFerdi {
 
     double min(int tiefe, double alpha, double beta, Board board) {
         if (tiefe == 0 || generiereMoeglicheZuege(board, player_min).size()==0){
-            return heuristic.determineScore(board);
+            return player_max.getHeuristic().determineScore(board);
         }
         double minWert = beta;
         List<Board> nextMoves = generiereMoeglicheZuege(board, player_min);

@@ -1,11 +1,11 @@
 package app.ui;
 
 import app.logic.Board;
-import app.logic.Heuristics.FerdiHeiristic;
+import app.logic.Gamemode;
+import app.logic.Heuristics.FerdiHeuristic;
 import app.logic.Heuristics.Heuristic;
 import app.logic.Heuristics.IHeuristic;
 import app.logic.Player;
-import app.logic.minimax.MiniMax;
 import app.logic.minimax.MiniMaxFerdi;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -36,20 +36,22 @@ public class Controller implements Initializable {
     public static final int ROWS = 6;
     private static final int CIRCLE_DIAMETER = 80;
 
-    public static boolean isPlayerOne = true;
+    private static Gamemode gamemode = Gamemode.AIVSAISTART;
+
     public static boolean isGameOver = false;
 
     private Disc[][] insertedDiscArray = new Disc[ROWS][COLUMNS];
 
-    public static IHeuristic heuristic = new FerdiHeiristic();
-    public static IHeuristic heuristic2 = new Heuristic();
+    public static IHeuristic heuristicFerdi = new FerdiHeuristic();
+    public static IHeuristic heuristicThorben = new Heuristic();
 
     public static MiniMaxFerdi miniMaxFerdi;
 
-    public static Player player1 = new Player(heuristic, "0x000000ff", "Ferdinand");
-    public static Player player2 = new Player(heuristic2, "0xffffffff", "Thorben");
+    public static Player playerFerdi = new Player(heuristicFerdi, "0x000000ff", "Ferdinand");
+    public static Player playerThorben = new Player(heuristicThorben, "0xffffffff", "Thorben");
 
-    public static Board board = new Board(player2, player1);
+    public static Player currentPlayer = playerFerdi;
+    public static Board board = new Board(playerThorben, playerFerdi);
 
 
     private boolean isAllowed = true;
@@ -74,20 +76,20 @@ public class Controller implements Initializable {
 
     public static Player getPlayerByName(String name){
         System.out.println(name);
-        if(player1.getName().equals(name)){
-            return player1;
-        }else if(player2.getName().equals(name)){
-            return player2;
+        if(playerFerdi.getName().equals(name)){
+            return playerFerdi;
+        }else if(playerThorben.getName().equals(name)){
+            return playerThorben;
         }else{
             return null;
         }
     }
 
     public static Player getPlayerByColor(String color){
-        if(player1.getColor().equals(color)){
-            return player1;
-        }else if(player2.getColor().equals(color)){
-            return player2;
+        if(playerFerdi.getColor().equals(color)){
+            return playerFerdi;
+        }else if(playerThorben.getColor().equals(color)){
+            return playerThorben;
         }else{
             return null;
         }
@@ -95,6 +97,7 @@ public class Controller implements Initializable {
 
     public void createPlayground() {
 
+        playerNameLabel.setText(playerFerdi.getName());
 
         pl1.setFocusTraversable(false);
         pl2.setFocusTraversable(false);
@@ -102,10 +105,10 @@ public class Controller implements Initializable {
 
         setBtn.setOnAction(event -> {
 
-            player1.setName(pl1.getText());
-            player2.setName(pl2.getText());
+            playerFerdi.setName(pl1.getText());
+            playerThorben.setName(pl2.getText());
 
-            if (player1.getName().isEmpty() || player2.getName().isEmpty()) {
+            if (playerFerdi.getName().isEmpty() || playerThorben.getName().isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Enter all Details");
                 alert.setContentText("Enter details for both Player One and Player Two");
@@ -169,6 +172,21 @@ public class Controller implements Initializable {
 
     }
 
+    private void swapPlayer(){
+        if(currentPlayer.equals(playerFerdi)){
+            currentPlayer = playerThorben;
+        }else{
+            currentPlayer = playerFerdi;
+        }
+    }
+
+    private Player getOtherPlayer(Player player){
+        if(player == playerFerdi){
+            return playerThorben;
+        }else{
+            return playerFerdi;
+        }
+    }
 
     private List<Rectangle> createClickableColumns() {
 
@@ -189,7 +207,12 @@ public class Controller implements Initializable {
 
                 if (isAllowed) {
                     isAllowed = false;
-                    insertDisc(new Disc(isPlayerOne), column);
+                    if(gamemode.equals(Gamemode.AIVSAI)){
+                        makeAIMove();
+                    }else {
+                        insertDisc(new Disc(currentPlayer), column);
+                    }
+
 
                 }
             });
@@ -236,18 +259,24 @@ public class Controller implements Initializable {
             board.set(currentRow, column, disc.getFill().toString());
             System.out.println(board.toSimpleString());
 
-            if (Heuristic.gameEnded(board,disc.getFill().toString())) {
+            if(playerThorben.getHeuristic().gameEnded(board, playerThorben) || playerFerdi.getHeuristic().gameEnded(board, playerFerdi)){
                 isGameOver = true;
                 gameOver();
-
             }
-            isPlayerOne = !isPlayerOne;
 
-            playerNameLabel.setText(isPlayerOne ? player2.getName() : player1.getName());
+
+            playerNameLabel.setText(getOtherPlayer(currentPlayer).getName());
 
             displayScore();
-            isPlayerOne = !isPlayerOne;
-            makeAIMove();
+
+            swapPlayer();
+
+            if(gamemode.equals(Gamemode.AIVSAISTART) || gamemode.equals(Gamemode.AIVSAI)){
+                if(!isGameOver){
+                    makeAIMove();
+                }
+            }else{
+            }
 
         });
 
@@ -256,31 +285,25 @@ public class Controller implements Initializable {
     }
 
     private void makeAIMove(){
-        Disc disc = new Disc(!isPlayerOne);
+        Disc disc = new Disc(currentPlayer);
         //int column = MiniMax.determineBestMove(board,Controller.MINIMAX_DEPTH,Controller.PRUNE,Controller.PRINT_MINIMAX_TREE);
-        if(!isGameOver){
-            if(isPlayerOne){
-                miniMaxFerdi = new MiniMaxFerdi(player1.getHeuristic(), player1, player2);
-            }else{
-                miniMaxFerdi = new MiniMaxFerdi(player2.getHeuristic(), player2, player1);
-            }
-            int column = miniMaxFerdi.minmax(board);
-            if(column!=Integer.MIN_VALUE){
-                System.out.println("Make AI Move in col: "+column);
-                isPlayerOne = !isPlayerOne;
-                insertDisc(disc, column);
-            }
+
+        miniMaxFerdi = new MiniMaxFerdi(currentPlayer, getOtherPlayer(currentPlayer));
+        int column = miniMaxFerdi.minmax(board);
+        if(column!=Integer.MIN_VALUE){
+            System.out.println("Make AI Move in col: "+column);
+            insertDisc(disc, column);
         }
 
 
     }
 
     private void displayScore() {
-        double score1 = Controller.heuristic.determineScore(board, player1);
-        double score2 = Controller.heuristic2.determineScore(board, player2);
+        double score1 = Controller.heuristicFerdi.determineScore(board, playerFerdi);
+        double score2 = Controller.heuristicThorben.determineScore(board, playerThorben);
 
-        this.score1.setText(String.valueOf(score1));
-        this.score2.setText(String.valueOf(score2));
+        this.score1.setText(score1 + ": " +  playerFerdi.getName().substring(0, 1));
+        this.score2.setText(score2 + ": " +  playerThorben.getName().substring(0, 1));
     }
 
     private Disc getDiscIfPresent(int row, int column) {
@@ -293,7 +316,7 @@ public class Controller implements Initializable {
 
     private void gameOver() {
 
-        String winner = isPlayerOne ? player1.getName() : player2.getName();
+        String winner = currentPlayer.getName();
         System.out.println("Winner is " + winner);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -340,8 +363,8 @@ public class Controller implements Initializable {
 
         }
 
-        isPlayerOne = true;
-        playerNameLabel.setText(player1.getName());
+        currentPlayer = Controller.playerFerdi;
+        playerNameLabel.setText(playerFerdi.getName());
         board.clear();
         createPlayground();
         isGameOver = false;
@@ -350,16 +373,16 @@ public class Controller implements Initializable {
 
     private static class Disc extends Circle {
 
-        private final boolean isPlayerOneMove;
+        private final Player player;
 
-        public Disc(boolean isPlayerOneMove) {
+        public Disc(Player player) {
 
-            this.isPlayerOneMove = isPlayerOneMove;
+            this.player = player;
             setRadius(CIRCLE_DIAMETER / 2);
             setCenterX(CIRCLE_DIAMETER / 2);
             setCenterY(CIRCLE_DIAMETER / 2);
 
-            setFill(isPlayerOneMove ? Color.valueOf(player1.getColor()) : Color.valueOf(player2.getColor()));
+            setFill(Color.valueOf(player.getColor()));
         }
 
     }

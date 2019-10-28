@@ -7,5 +7,5 @@ public interface IHeuristic {
 
     double determineScore(Board board);
     double determineScore(Board board, Player color);
-
+    boolean gameEnded(Board board, Player color);
 }
