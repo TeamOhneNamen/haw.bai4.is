@@ -49,9 +49,9 @@ public class Controller implements Initializable {
 
     public static Player playerFerdi = new Player(heuristicFerdi, "0x000000ff", "Ferdinand");
     public static Player playerThorben = new Player(heuristicThorben, "0xffffffff", "Thorben");
-
-    public static Player currentPlayer = playerFerdi;
-    public static Board board = new Board(playerThorben, playerFerdi);
+    public static final Player startPlayer = playerFerdi;
+    public static Player currentPlayer = startPlayer;
+    public static Board board;
 
 
     private boolean isAllowed = true;
@@ -97,7 +97,7 @@ public class Controller implements Initializable {
 
     public void createPlayground() {
 
-        playerNameLabel.setText(playerFerdi.getName());
+        playerNameLabel.setText(startPlayer.getName());
 
         pl1.setFocusTraversable(false);
         pl2.setFocusTraversable(false);
@@ -190,6 +190,8 @@ public class Controller implements Initializable {
 
     private List<Rectangle> createClickableColumns() {
 
+        board = new Board(currentPlayer, getOtherPlayer(currentPlayer));
+
         List<Rectangle> rectangleList = new ArrayList<>();
 
 
@@ -208,9 +210,11 @@ public class Controller implements Initializable {
                 if (isAllowed) {
                     isAllowed = false;
                     if(gamemode.equals(Gamemode.AIVSAI)){
-                        makeAIMove();
-                    }else {
-                        insertDisc(new Disc(currentPlayer), column);
+                        makeAIMove(true);
+                    }else if(gamemode.equals(Gamemode.AIVSAISTART)) {
+                        insertDisc(new Disc(currentPlayer), column, true);
+                    }else{
+                        insertDisc(new Disc(currentPlayer), column, true);
                     }
 
 
@@ -225,7 +229,7 @@ public class Controller implements Initializable {
 
     }
 
-    private void insertDisc(Disc disc, int column) {
+    private void insertDisc(Disc disc, int column, boolean aiWeiter) {
 
         int row = ROWS - 1;
 
@@ -271,11 +275,8 @@ public class Controller implements Initializable {
 
             swapPlayer();
 
-            if(gamemode.equals(Gamemode.AIVSAISTART) || gamemode.equals(Gamemode.AIVSAI)){
-                if(!isGameOver){
-                    makeAIMove();
-                }
-            }else{
+            if (!isGameOver && aiWeiter) {
+                makeAIMove(aiWeiter);
             }
 
         });
@@ -284,7 +285,7 @@ public class Controller implements Initializable {
 
     }
 
-    private void makeAIMove(){
+    private void makeAIMove(boolean aiWeiter){
         Disc disc = new Disc(currentPlayer);
         //int column = MiniMax.determineBestMove(board,Controller.MINIMAX_DEPTH,Controller.PRUNE,Controller.PRINT_MINIMAX_TREE);
 
@@ -292,7 +293,11 @@ public class Controller implements Initializable {
         int column = miniMaxFerdi.minmax(board);
         if(column!=Integer.MIN_VALUE){
             System.out.println("Make AI Move in col: "+column);
-            insertDisc(disc, column);
+            if(gamemode.equals(Gamemode.AIVSAI) || gamemode.equals(Gamemode.AIVSAISTART)){
+                insertDisc(disc, column, true);
+            }else{
+                insertDisc(disc, column, false);
+            }
         }
 
 
@@ -363,9 +368,9 @@ public class Controller implements Initializable {
 
         }
 
-        currentPlayer = Controller.playerFerdi;
-        playerNameLabel.setText(playerFerdi.getName());
-        board.clear();
+        currentPlayer = Controller.startPlayer;
+        playerNameLabel.setText(startPlayer.getName());
+        board = new Board(startPlayer, getOtherPlayer(startPlayer));
         createPlayground();
         isGameOver = false;
     }
