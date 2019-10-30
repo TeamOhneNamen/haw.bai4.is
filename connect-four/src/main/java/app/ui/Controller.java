@@ -6,6 +6,7 @@ import app.logic.Heuristics.FerdiHeuristic;
 import app.logic.Heuristics.Heuristic;
 import app.logic.Heuristics.IHeuristic;
 import app.logic.Player;
+import app.logic.minimax.MiniMax;
 import app.logic.minimax.MiniMaxFerdi;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -30,13 +31,13 @@ public class Controller implements Initializable {
 
 
     public static final boolean PRUNE = true;
-    public static final boolean PRINT_MINIMAX_TREE = false;
+    public static final boolean PRINT_MINIMAX_TREE = true;
     public static final int MINIMAX_DEPTH = 3;
     public static final int COLUMNS = 7;
     public static final int ROWS = 6;
     private static final int CIRCLE_DIAMETER = 80;
 
-    private static Gamemode gamemode = Gamemode.AIVSAISTART;
+    private static Gamemode gamemode = Gamemode.AIVSPLAYER;
 
     public static boolean isGameOver = false;
 
@@ -46,6 +47,7 @@ public class Controller implements Initializable {
     public static IHeuristic heuristicThorben = new Heuristic();
 
     public static MiniMaxFerdi miniMaxFerdi;
+    public static boolean TAKE_FERDIS_MINIMAX = true;
 
     public static Player playerFerdi = new Player(heuristicFerdi, "0x000000ff", "Ferdinand");
     public static Player playerThorben = new Player(heuristicThorben, "0xffffffff", "Thorben");
@@ -289,8 +291,14 @@ public class Controller implements Initializable {
         Disc disc = new Disc(currentPlayer);
         //int column = MiniMax.determineBestMove(board,Controller.MINIMAX_DEPTH,Controller.PRUNE,Controller.PRINT_MINIMAX_TREE);
 
-        miniMaxFerdi = new MiniMaxFerdi(currentPlayer, getOtherPlayer(currentPlayer));
-        int column = miniMaxFerdi.minmax(board);
+        int column;
+        if(TAKE_FERDIS_MINIMAX){
+            miniMaxFerdi = new MiniMaxFerdi(currentPlayer, getOtherPlayer(currentPlayer));
+            column = miniMaxFerdi.minmax(board);
+        }else{
+            column = MiniMax.determineBestMove(board,MINIMAX_DEPTH,PRUNE,PRINT_MINIMAX_TREE);
+        }
+
         if(column!=Integer.MIN_VALUE){
             System.out.println("Make AI Move in col: "+column);
             if(gamemode.equals(Gamemode.AIVSAI) || gamemode.equals(Gamemode.AIVSAISTART)){
