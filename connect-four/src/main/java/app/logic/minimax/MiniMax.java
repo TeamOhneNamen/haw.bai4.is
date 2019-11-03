@@ -2,12 +2,14 @@ package app.logic.minimax;
 
 import app.logic.Board;
 import app.logic.Heuristics.Heuristic;
+import app.logic.Player;
 import app.ui.Controller;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.model.MutableGraph;
 import guru.nidi.graphviz.parse.Parser;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,9 +18,9 @@ public class MiniMax {
 
 
     //return the column of the best move
-    public static int determineBestMove(Board board, int depth, boolean pruned, boolean printTree){
+    public static int determineBestMove(Board board, int depth, boolean pruned, boolean printTree, Player player){
         TreeNode<Board> tree = MiniMax.contructTree(board, depth);
-        MiniMax.miniMax(tree, pruned);
+        MiniMax.miniMax(tree, pruned, player);
         Board bestMove = findBestMove(tree);
         if(printTree){
             final String fileName = "src/main/resources/graph/determineBestMove.";
@@ -63,26 +65,26 @@ public class MiniMax {
 
 
 
-    protected static void miniMax(TreeNode<Board> tree, boolean pruned){
+    protected static void miniMax(TreeNode<Board> tree, boolean pruned, Player player){
         if (pruned) {
-            miniMax(tree, Board.LOWEST_NUMBER, Board.HIGHEST_NUMBER);
+            miniMax(tree, Board.LOWEST_NUMBER, Board.HIGHEST_NUMBER, player);
         } else {
-            miniMax(tree);
+            miniMax(tree, player);
         }
     };
 
     //the miniMax algorithm based on: https://www.youtube.com/watch?v=l-hh51ncgDI
-    private static double miniMax(TreeNode<Board> tree){
+    private static double miniMax(TreeNode<Board> tree, Player player){
         if(tree.isLeaf()){
             Board board = tree.data;
-            board.score = Controller.heuristicThorben.determineScore(board);
+            board.score = Controller.playerThorben.getHeuristic().determineScore(board, player , null);
             return board.score;
         }
         //maximizer is next to move
         if(Board.MAXIMIZER.equals(tree.data.nextPlayer)){
             double maxEval = Board.LOWEST_NUMBER;
             for(int i = 0; i < tree.children.size()-1; i++){
-                double eval = miniMax(tree.children.get(i));
+                double eval = miniMax(tree.children.get(i), player);
                 maxEval = max(maxEval,eval);
             }
             tree.data.score = maxEval;
@@ -91,7 +93,7 @@ public class MiniMax {
         }else {
             double minEval = Board.HIGHEST_NUMBER;
             for(int i = 0; i < tree.children.size()-1; i++){
-                double eval = miniMax(tree.children.get(i));
+                double eval = miniMax(tree.children.get(i), player);
                 minEval = ((minEval < eval) ? minEval : eval);
             }
             tree.data.score = minEval;
@@ -108,17 +110,17 @@ public class MiniMax {
     }
 
     //the miniMax with alphaBeta Pruning algorithm based on: https://www.youtube.com/watch?v=l-hh51ncgDI
-    private static double miniMax(TreeNode<Board> tree, double alpha, double beta){
+    private static double miniMax(TreeNode<Board> tree, double alpha, double beta, Player player){
         if(tree.isLeaf()){
             Board board = tree.data;
-            board.score = Controller.heuristicThorben.determineScore(board);
+            board.score = Controller.playerThorben.getHeuristic().determineScore(board, player, null);
             return board.score;
         }
         //maximizer is next to move
         if(Board.MAXIMIZER.equals(tree.data.nextPlayer)){
             double maxEval = Board.LOWEST_NUMBER;
             for(int i = 0; i < tree.children.size()-1; i++){
-                double eval = miniMax(tree.children.get(i),alpha,beta);
+                double eval = miniMax(tree.children.get(i),alpha,beta, player);
                 maxEval = max(maxEval,eval);
                 alpha = max(alpha, eval);
                 if(beta <= alpha){
@@ -132,7 +134,7 @@ public class MiniMax {
         }else {
             double minEval = Board.HIGHEST_NUMBER;
             for(int i = 0; i < tree.children.size()-1; i++){
-                double eval = miniMax(tree.children.get(i),alpha,beta);
+                double eval = miniMax(tree.children.get(i),alpha,beta, player);
                 minEval = ((minEval < eval) ? minEval : eval);
                 beta = min(beta, eval);
                 if(beta <= alpha){

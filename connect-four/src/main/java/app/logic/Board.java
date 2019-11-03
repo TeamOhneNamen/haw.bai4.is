@@ -27,6 +27,19 @@ public class Board {
 
     private BoardElement lastMove;
 
+    public boolean bordIsEmpty(){
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                if(board[i][j]!=null){
+                    if(!board[i][j].equals(NO_COLOR)){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     public Board(String[][] board, Player lastPlayer, Player nextPlayer) {
         this.board = board;
         this.lastPlayer = lastPlayer;
@@ -76,8 +89,8 @@ public class Board {
     //returns if the value could be inserted in the given column
     public boolean insertInColumn(int column, String value) {
         boolean inserted = false;
-        int row = rowLength() - 1;
-        while (!inserted && row > 0) {
+        int row = rowLength()-1;
+        while (!inserted && row >= 0) {
             if (null == this.board[row][column]) {
                 this.set(row, column, value);
                 inserted = true;

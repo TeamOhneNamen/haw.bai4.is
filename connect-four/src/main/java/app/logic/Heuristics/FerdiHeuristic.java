@@ -7,24 +7,40 @@ public class FerdiHeuristic implements IHeuristic {
 
 
     final static int AMOUNT_OF_NEIGHBORS_TO_CHECK = 4;
-    static Player player;
+    static Player playerMax;
+    static Player playerMin;
 
     @Override
-    public double determineScore(Board board) {
-        if(this.player==null){
-            throw new NullPointerException();
-        }
-        return determineScore(board, this.player);
+    public double determineScore(Board board, Player playerMaxPara, Player playerMinPara) {
+        this.playerMax = playerMaxPara;
+        this.playerMin = playerMinPara;
+        return determineScore(board);
     }
 
-    @Override
-    public double determineScore(Board board, Player player) {
-        this.player = player;
-        double score = 0.0;
-        score = score + ecalUp(board, this.player);
-        score = score + ecalSide(board, this.player);
-        score = score + ecalDia(board, this.player);
-        return score;
+    public double determineScore(Board board) {
+
+        double scoreMax = 0.0;
+        scoreMax = scoreMax + ecalUp(board, this.playerMax);
+        scoreMax = scoreMax + ecalSide(board, this.playerMax);
+        scoreMax = scoreMax + ecalDia(board, this.playerMax);
+        double scoreMin = 0.0;
+        double ecalDown = ecalUp(board, this.playerMin);
+        if(ecalDown==1000000){
+            return -4000000;
+        }
+        scoreMin = scoreMin + ecalDown;
+        double ecalSide = ecalSide(board, this.playerMin);
+        if(ecalSide==1000000){
+            return -4000000;
+        }
+        scoreMin = scoreMin + ecalSide;
+        double ecalDia = ecalDia(board, this.playerMin);
+        if(ecalDia==1000000){
+                return -4000000;
+        }
+        scoreMin = scoreMin + ecalDia;
+
+        return scoreMax - scoreMin;
     }
 
     private double ecalDia(Board board, Player playerPara){
@@ -70,8 +86,15 @@ public class FerdiHeuristic implements IHeuristic {
     }
 
     @Override
-    public boolean gameEnded(Board board, Player playerPara) {
-        return ecalSide(board, playerPara)>=1000000 || ecalDia(board, playerPara)>=1000000 || ecalUp(board, playerPara)>=1000000;
+    public Player gameEnded(Board board, Player player1, Player player2) {
+
+        if(ecalSide(board, player1)>=1000000 || ecalDia(board, player1)>=1000000 || ecalUp(board, player1)>=1000000){
+            return player1;
+        }else if(ecalSide(board, player2)>=1000000 || ecalDia(board, player2)>=1000000 || ecalUp(board, player2)>=1000000){
+            return player2;
+        }else{
+            return null;
+        }
     }
 
     public double checkDir(Board board, Player playerPara, int xMultiplyer, int yMultiplyer){
@@ -84,7 +107,7 @@ public class FerdiHeuristic implements IHeuristic {
                 for (int k = 0; k < AMOUNT_OF_NEIGHBORS_TO_CHECK; k++) {
                     if(isSameColor(board, playerPara, i+(k*xMultiplyer), j+(k*yMultiplyer))){
                         inARow++;
-                        tempScore = tempScore+2;
+                        tempScore = tempScore*tempScore+1;
                     }else if (isFree(board, i+(k*xMultiplyer), j+(k*yMultiplyer))){
                         tempScore = tempScore+1;
                     }else {
@@ -110,9 +133,13 @@ public class FerdiHeuristic implements IHeuristic {
                         if(isThreeInThrRow){
                             //System.out.println("ist " + (i + (AMOUNT_OF_NEIGHBORS_TO_CHECK * xMultiplyer)) + " : " + (j + (AMOUNT_OF_NEIGHBORS_TO_CHECK * yMultiplyer)) + " frei?");
                             if (isFree(board, i + (AMOUNT_OF_NEIGHBORS_TO_CHECK * xMultiplyer), j + (AMOUNT_OF_NEIGHBORS_TO_CHECK * yMultiplyer))) {
-                                score = score + 1000;
-                                //System.out.println("UNLOOSABLE");
-                                break;
+                                if(!isFree(board, i + (AMOUNT_OF_NEIGHBORS_TO_CHECK * xMultiplyer)-1, j + (AMOUNT_OF_NEIGHBORS_TO_CHECK * yMultiplyer))){
+                                    score = score + 900000;
+                                    //System.out.println("UNLOOSABLE");
+                                    break;
+                                }else{
+                                    score = score + 1000;
+                                }
                             }
                         }
 

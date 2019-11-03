@@ -5,7 +5,6 @@ import app.logic.BoardElement;
 import app.logic.Player;
 import app.logic.minimax.Direction;
 import app.ui.Controller;
-import jdk.nashorn.internal.objects.annotations.Constructor;
 
 //Based on this idea: https://cs.stackexchange.com/a/13455
 public class Heuristic implements IHeuristic {
@@ -14,13 +13,13 @@ public class Heuristic implements IHeuristic {
     final static double MAXIMUM_SCORE = 100.0;
 
     public double determineScore(Board board) {
-        double scoreMaximizer = determineScore(board, board.nextPlayer);
-        double scoreMinimizer = determineScore(board, Controller.getPlayerByColor(board.getLastMove().data));
+        double scoreMaximizer = determineScore(board, board.nextPlayer, null);
+        double scoreMinimizer = determineScore(board, Controller.getPlayerByColor(board.getLastMove().data), null);
         return scoreMaximizer - scoreMinimizer;
     }
 
     @Override
-    public double determineScore(Board board, Player player) {
+    public double determineScore(Board board, Player player1, Player player2) {
         int emptyLeftNeighbors = 0;
         int emptyRightNeighbors = 0;
         int inARow = 0;
@@ -60,7 +59,7 @@ public class Heuristic implements IHeuristic {
                             break;
                     }
                     // 1 in a row
-                    if (player.getColor().equals(board.get(row, column))) {
+                    if (player1.getColor().equals(board.get(row, column))) {
                         inARow++;
                         // space to the left
                         emptyLeftNeighbors = checkLeftNeighbors(board, row, column, direction);
@@ -69,7 +68,7 @@ public class Heuristic implements IHeuristic {
 
                         for (int h = 0; h < (AMOUNT_OF_NEIGHBORS_TO_CHECK + 2); h++) {
 
-                            if (player.getColor().equals(rightNeighbor.data)) {
+                            if (player1.getColor().equals(rightNeighbor.data)) {
                                 inARow++;
                                 j++;
                                 rightNeighbor = board.getRightNeighbor(rightNeighbor, direction);
@@ -127,8 +126,7 @@ public class Heuristic implements IHeuristic {
         return emptyLeftNeighbors;
     }
 
-    @Override
-    public boolean gameEnded(Board board, Player player) {
+    public static boolean gameEnded(Board board, Player player) {
         System.out.println("Did " + player.getName() + " won?");
         int inARow = 0;
         int outerCountBorder = 0;
@@ -196,5 +194,16 @@ public class Heuristic implements IHeuristic {
         }
 
         return false;
+    }
+
+    @Override
+    public Player gameEnded(Board board, Player playerThorben, Player playerFerdi) {
+        if(gameEnded(board, playerThorben)){
+            return playerThorben;
+        }else if(gameEnded(board, playerFerdi)){
+            return playerFerdi;
+        }else{
+            return null;
+        }
     }
 }

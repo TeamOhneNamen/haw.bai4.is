@@ -5,7 +5,6 @@ import app.logic.Player;
 
 public interface IHeuristic {
 
-    double determineScore(Board board);
-    double determineScore(Board board, Player color);
-    boolean gameEnded(Board board, Player color);
+    double determineScore(Board board, Player playerMax, Player playerMin);
+    Player gameEnded(Board board, Player playerMax, Player playerMin);
 }

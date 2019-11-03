@@ -23,7 +23,9 @@ public class HeuristicTest {
         board.set(2,0, black);
         board.set(1,2, white);
         board.set(3,0, black);
-        assertTrue(Controller.playerFerdi.getHeuristic().gameEnded(board,Controller.playerFerdi));
+        assertTrue(Controller.currentPlayer.getHeuristic().gameEnded(board, Controller.playerFerdi, Controller.playerThorben)!=null);
+
+
     }
 
     @Test
@@ -34,7 +36,8 @@ public class HeuristicTest {
         board.set(1,0, black);
         board.set(0,2, white);
         board.set(2,0, black);
-        assertFalse(Controller.playerFerdi.getHeuristic().gameEnded(board,Controller.playerFerdi));
+        assertTrue(Controller.currentPlayer.getHeuristic().gameEnded(board, Controller.playerFerdi, Controller.playerThorben)!=null);
+
     }
 
     @Test
@@ -47,7 +50,8 @@ public class HeuristicTest {
         board.set(0,2, black);
         board.set(0,4, white);
         board.set(0,3, black);
-        assertFalse(Controller.playerFerdi.getHeuristic().gameEnded(board,Controller.playerFerdi));
+        assertTrue(Controller.currentPlayer.getHeuristic().gameEnded(board, Controller.playerFerdi, Controller.playerThorben)!=null);
+
     }
 
 }

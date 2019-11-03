@@ -32,10 +32,13 @@ public class Controller implements Initializable {
 
     public static final boolean PRUNE = true;
     public static final boolean PRINT_MINIMAX_TREE = true;
-    public static final int MINIMAX_DEPTH = 3;
+    public static final int MINIMAX_DEPTH = 8;
     public static final int COLUMNS = 7;
     public static final int ROWS = 6;
     private static final int CIRCLE_DIAMETER = 80;
+
+    private static final boolean animation = true;
+    private static final boolean aiStarts = true;
 
     private static Gamemode gamemode = Gamemode.AIVSPLAYER;
 
@@ -43,17 +46,16 @@ public class Controller implements Initializable {
 
     private Disc[][] insertedDiscArray = new Disc[ROWS][COLUMNS];
 
-    public static IHeuristic heuristicFerdi = new FerdiHeuristic();
-    public static IHeuristic heuristicThorben = new Heuristic();
+    public static Board board;
 
     public static MiniMaxFerdi miniMaxFerdi;
     public static boolean TAKE_FERDIS_MINIMAX = true;
 
-    public static Player playerFerdi = new Player(heuristicFerdi, "0x000000ff", "Ferdinand");
-    public static Player playerThorben = new Player(heuristicThorben, "0xffffffff", "Thorben");
+    public static Player playerFerdi = new Player(new FerdiHeuristic(), "0x000000ff", "Ferdinand");
+    public static Player playerThorben = new Player(new FerdiHeuristic(), "0xffffffff", "Thorben");
     public static final Player startPlayer = playerFerdi;
     public static Player currentPlayer = startPlayer;
-    public static Board board;
+
 
 
     private boolean isAllowed = true;
@@ -209,17 +211,21 @@ public class Controller implements Initializable {
             final int column = col;
             rectangle.setOnMouseClicked(event -> {
 
-                if (isAllowed) {
-                    isAllowed = false;
-                    if(gamemode.equals(Gamemode.AIVSAI)){
-                        makeAIMove(true);
-                    }else if(gamemode.equals(Gamemode.AIVSAISTART)) {
-                        insertDisc(new Disc(currentPlayer), column, true);
-                    }else{
-                        insertDisc(new Disc(currentPlayer), column, true);
+                if(aiStarts && board.bordIsEmpty()){
+                    System.out.println("isEmpty");
+                    makeAIMove(true);
+                }else{
+                    if (isAllowed) {
+                        System.out.println("Klick");
+                        isAllowed = false;
+                        if(gamemode.equals(Gamemode.AIVSAI)){
+                            makeAIMove(true);
+                        }else if(gamemode.equals(Gamemode.AIVSAISTART)) {
+                            insertDisc(new Disc(currentPlayer), column, true);
+                        }else{
+                            insertDisc(new Disc(currentPlayer), column, true);
+                        }
                     }
-
-
                 }
             });
 
@@ -241,8 +247,6 @@ public class Controller implements Initializable {
                 break;
             row--;
         }
-
-
         if (row < 0) {
             return;
         }
@@ -251,40 +255,48 @@ public class Controller implements Initializable {
 
         insertDiscsPane.getChildren().add(disc);
 
-        disc.setTranslateX(column * (CIRCLE_DIAMETER + 5) + 20);
-
-        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5), disc);
-        translateTransition.setToY(row * (CIRCLE_DIAMETER + 5) + 20);
-
         int currentRow = row;
 
-        translateTransition.setOnFinished(event -> {
-            isAllowed = true;
 
-            insertedDiscArray[currentRow][column] = disc;
-            board.set(currentRow, column, disc.getFill().toString());
-            System.out.println(board.toSimpleString());
+        disc.setTranslateX(column * (CIRCLE_DIAMETER + 5) + 20);
 
-            if(playerThorben.getHeuristic().gameEnded(board, playerThorben) || playerFerdi.getHeuristic().gameEnded(board, playerFerdi)){
-                isGameOver = true;
-                gameOver();
-            }
+        if(animation){
+            TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5), disc);
+            translateTransition.setToY(row * (CIRCLE_DIAMETER + 5) + 20);
+            translateTransition.setOnFinished(event -> {
+                makeMove(currentRow, column, disc, aiWeiter);
+            });
 
+            translateTransition.play();
+        }else{
+            disc.setTranslateY(row * (CIRCLE_DIAMETER + 5) + 20);
 
-            playerNameLabel.setText(getOtherPlayer(currentPlayer).getName());
+            makeMove(currentRow, column, disc, aiWeiter);
+        }
+    }
 
-            displayScore();
+    private void makeMove(int currentRow, int column, Disc disc, boolean aiWeiter) {
+        isAllowed = true;
 
-            swapPlayer();
+        insertedDiscArray[currentRow][column] = disc;
+        board.set(currentRow, column, disc.getFill().toString());
+        System.out.println(board.toSimpleString());
 
-            if (!isGameOver && aiWeiter) {
-                makeAIMove(aiWeiter);
-            }
+        Player tempPlayer = currentPlayer.getHeuristic().gameEnded(board, playerThorben, playerFerdi);
+        if(tempPlayer!=null){
+            currentPlayer = tempPlayer;
+            isGameOver = true;
+            gameOver();
+        }
+        playerNameLabel.setText(getOtherPlayer(currentPlayer).getName());
 
-        });
+        displayScore();
 
-        translateTransition.play();
+        swapPlayer();
 
+        if (!isGameOver && aiWeiter) {
+            makeAIMove(aiWeiter);
+        }
     }
 
     private void makeAIMove(boolean aiWeiter){
@@ -293,14 +305,14 @@ public class Controller implements Initializable {
 
         int column;
         if(TAKE_FERDIS_MINIMAX){
-            miniMaxFerdi = new MiniMaxFerdi(currentPlayer, getOtherPlayer(currentPlayer));
+            miniMaxFerdi = new MiniMaxFerdi(currentPlayer, MINIMAX_DEPTH, getOtherPlayer(currentPlayer));
             column = miniMaxFerdi.minmax(board);
         }else{
-            column = MiniMax.determineBestMove(board,MINIMAX_DEPTH,PRUNE,PRINT_MINIMAX_TREE);
+            column = MiniMax.determineBestMove(board,MINIMAX_DEPTH,PRUNE,PRINT_MINIMAX_TREE, currentPlayer);
         }
 
         if(column!=Integer.MIN_VALUE){
-            System.out.println("Make AI Move in col: "+column);
+            //System.out.println("Make AI Move in col: "+column);
             if(gamemode.equals(Gamemode.AIVSAI) || gamemode.equals(Gamemode.AIVSAISTART)){
                 insertDisc(disc, column, true);
             }else{
@@ -312,8 +324,8 @@ public class Controller implements Initializable {
     }
 
     private void displayScore() {
-        double score1 = Controller.heuristicFerdi.determineScore(board, playerFerdi);
-        double score2 = Controller.heuristicThorben.determineScore(board, playerThorben);
+        double score1 = Controller.playerFerdi.getHeuristic().determineScore(board, playerFerdi, playerThorben);
+        double score2 = Controller.playerThorben.getHeuristic().determineScore(board, playerThorben, playerFerdi);
 
         this.score1.setText(score1 + ": " +  playerFerdi.getName().substring(0, 1));
         this.score2.setText(score2 + ": " +  playerThorben.getName().substring(0, 1));

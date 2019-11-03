@@ -28,7 +28,7 @@ public class MiniMaxTest {
         board.insertInColumn(5, Controller.playerFerdi.getColor());
 
         TreeNode<Board> tree = contructTree(board,2);
-        MiniMax.miniMax(tree,true);
+        MiniMax.miniMax(tree,true, Controller.playerFerdi);
 
 
         String treeString = TreeNode.treeToString(tree,true);
